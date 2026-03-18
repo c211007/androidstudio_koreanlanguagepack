@@ -1,20 +1,16 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# IntelliJ Platform Plugin Template Changelog
+# Android Studio 한국어 언어팩 Changelog
 
 ## [Unreleased]
 
-### Changed
+## [1.0.0] - 2026-03-18
 
-- Upgrade Gradle Wrapper to `9.3.1`
-- Set empty `versionPrefix` for changelog in Gradle build file.
-- Dependencies - upgrade `org.jetbrains.intellij.platform` to `2.11.0`
-- Dependencies - upgrade `org.jetbrains.kotlin.jvm` to `2.3.0`
-- Dependencies - upgrade `org.jetbrains.qodana` to `2025.3.1`
-- Dependencies - upgrade `org.jetbrains.kotlinx.kover` to `0.9.5`
-- Dependencies (GitHub Actions) - upgrade `actions/checkout` to `v6`
-- Dependencies (GitHub Actions) - upgrade `actions/upload-artifact` to `v6`
-- GitHub Actions: Setup Java and Gradle actions for the `releaseDraft` build step
+### Added
+
+- Android Studio / IntelliJ 기반 IDE UI 한국어 번역 초기 버전
+- 한국어 메시지 번들(`MyBundle_ko.properties`) 추가
+- 플러그인 기본 구조 설정 (도구 창, 프로젝트 서비스)
 
 ## [2.4.0] - 2025-11-25
 

@@ -1,8 +1,8 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>IntelliJ Platform Plugin Template</name>
-    <vendor>JetBrains</vendor>
+    <id>com.github.c211007.androidstudio_koreanlanguagepack</id>
+    <name>Android Studio 한국어 언어팩</name>
+    <vendor url="https://github.com/c211007">c211007</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
