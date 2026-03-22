@@ -1,0 +1,13 @@
+dialog.checkbox.group.option.1.label
+dialog.checkbox.group.option.2.label
+dialog.checkbox.group.option.3.label
+dialog.checkbox.group.option.other.label
+dialog.system.info.plugin.id
+dialog.system.info.plugin.name
+dialog.textarea.label
+dialog.title
+dialog.top.title
+dialog.zendesk.ticket.title
+disable.dialog.checkbox.group.label
+notification.thanks.feedback.content
+uninstall.dialog.checkbox.group.label

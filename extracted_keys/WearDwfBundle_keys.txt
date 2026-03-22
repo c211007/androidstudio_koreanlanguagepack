@@ -1,0 +1,23 @@
+Read more in the <a href
+inspection.feature.requires.higher.wff.version.description
+inspection.invalid.color.index.description
+inspection.invalid.color.index.invalid.index.in.range
+inspection.invalid.color.index.invalid.index.optional
+inspection.invalid.color.index.missing.colors
+inspection.invalid.color.index.missing.index
+inspection.invalid.complication.data.source.location.available.complication.types
+inspection.invalid.complication.data.source.location.description
+inspection.invalid.complication.data.source.location.missing.tag
+inspection.unknown.wff.version.description
+wff.expression.annotator.unknown.configuration
+wff.expression.annotator.unknown.datasource
+wff.expression.annotator.unknown.function
+wff.expression.annotator.unknown.reference
+wff.feature.requires.higher.wff.version.datasource
+wff.feature.requires.higher.wff.version.function
+wff.feature.requires.higher.wff.version.reference
+wfs.import.error.generic.message
+wfs.import.error.missing.main.module.message
+wfs.import.error.unsupported.file.extension
+wfs.import.progress
+wfs.import.success

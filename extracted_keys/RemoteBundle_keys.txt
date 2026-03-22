@@ -1,0 +1,5 @@
+credentials.type.filetype.description.unknown
+display.name.key.pair.openssh.or.putty
+display.name.openssh.config.and.authentication.agent
+display.name.password
+remote.sdk.exception.cant.obtain.remote.credentials

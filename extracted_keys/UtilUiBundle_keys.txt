@@ -1,0 +1,5 @@
+accessible.checkbox.name.checked
+accessible.checkbox.name.not.checked
+accessible.checkbox.name.partially.checked
+collapsible.panel.collapsed.state.tooltip.text
+collapsible.panel.expanded.state.tooltip.text

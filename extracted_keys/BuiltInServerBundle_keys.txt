@@ -1,0 +1,12 @@
+checkbox.tooltip.can.t.be.enabled.for.default.port
+notification.content.cannot.start.built.in.http.server.on.custom.port
+notification.content.cannot.start.internal.http.server.and.ask.for.restart.0
+reload.on.save.got.it.content
+reload.on.save.got.it.title
+reload.on.save.preview.got.it.content
+reload.on.save.preview.got.it.title
+setting.builtin.server.category.label
+setting.builtin.server.tip
+setting.value.builtin.server.allow.unsigned.requests
+setting.value.builtin.server.port.label
+setting.value.can.accept.external.connections

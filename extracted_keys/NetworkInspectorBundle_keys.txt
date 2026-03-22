@@ -1,0 +1,4 @@
+confirmation.body
+confirmation.header
+confirmation.rule
+confirmation.title

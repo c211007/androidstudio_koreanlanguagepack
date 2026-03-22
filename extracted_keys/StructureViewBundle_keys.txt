@@ -1,0 +1,15 @@
+action.logical.structure.dump.yaml.text
+action.sort.by.type
+action.structureview.group.methods.by.defining.type
+action.structureview.show.fields
+action.structureview.show.inherited
+action.structureview.sort.by.kind
+action.structureview.sort.by.visibility
+file.structure.toggle.show.inherited
+node.structureview.empty
+node.structureview.invalid
+structureview.subgroup.filter
+structureview.subgroup.group
+structureview.subgroup.sort
+structureview.tab.logical
+structureview.tab.physical
