@@ -148,8 +148,8 @@ Korean language pack for Android Studio. After installation, go to Settings > Ap
                            displayType="STICKY_BALLOON"
                            isLogByDefault="true"/>
 
-        <!-- Startup activity to show language change notification -->
-        <postStartupActivity implementation="com.github.c211007.androidstudiokoreanlanguagepack.KoreanLanguagePackNotifier"/>
+        <!-- Project activity to show language change notification -->
+        <projectActivity implementation="com.github.c211007.androidstudiokoreanlanguagepack.KoreanLanguagePackNotifier"/>
     </extensions>
 
     <!-- Test action to verify plugin is loaded -->

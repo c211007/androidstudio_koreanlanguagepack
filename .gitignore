@@ -5,3 +5,19 @@
 .kotlin
 .qodana
 build
+
+# Temporary extraction directories
+extracted_properties/
+temp_extracted/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE
+*.swp
+*.swo
+*~
