@@ -1,0 +1,48 @@
+<a href
+dialog.feedback.block.required
+dialog.feedback.cancel.label
+dialog.feedback.checkboxGroup.other.placeholder
+dialog.feedback.checkboxGroup.require.not.empty
+dialog.feedback.checkboxGroup.require.not.empty.with.other
+dialog.feedback.combobox.required
+dialog.feedback.computing.system.info
+dialog.feedback.consent.withEmail
+dialog.feedback.consent.withoutEmail
+dialog.feedback.email.checkbox.label
+dialog.feedback.email.textfield.invalid
+dialog.feedback.email.textfield.placeholder
+dialog.feedback.email.textfield.required
+dialog.feedback.ok.label
+dialog.feedback.radioGroup.require.not.empty
+dialog.feedback.rating.required
+dialog.feedback.segmentedButton.required
+dialog.feedback.system.info.panel.app.version
+dialog.feedback.system.info.panel.app.version.build
+dialog.feedback.system.info.panel.app.version.build.date
+dialog.feedback.system.info.panel.app.version.build.date.time
+dialog.feedback.system.info.panel.app.version.host
+dialog.feedback.system.info.panel.cores
+dialog.feedback.system.info.panel.disabled.plugins
+dialog.feedback.system.info.panel.disabled.plugins.empty
+dialog.feedback.system.info.panel.internal.mode.enabled
+dialog.feedback.system.info.panel.license.evaluation
+dialog.feedback.system.info.panel.license.no.info
+dialog.feedback.system.info.panel.license.restrictions
+dialog.feedback.system.info.panel.memory
+dialog.feedback.system.info.panel.nonbundled.plugins
+dialog.feedback.system.info.panel.nonbundled.plugins.empty
+dialog.feedback.system.info.panel.os.version
+dialog.feedback.system.info.panel.registry
+dialog.feedback.system.info.panel.registry.empty
+dialog.feedback.system.info.panel.remote.dev.host
+dialog.feedback.system.info.panel.runtime.version
+dialog.feedback.system.info.title
+may process said data using <a href
+notification.group.feedback
+notification.group.feedback.sticky
+notification.request.feedback.action.dont.show.text
+notification.request.feedback.action.respond.text
+notification.thanks.feedback.content
+notification.thanks.feedback.title
+s.r.o. may process said data using <a href
+the <a href

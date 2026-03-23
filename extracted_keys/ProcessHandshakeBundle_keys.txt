@@ -1,0 +1,2 @@
+dialog.message.process.handshake.failed.eof
+dialog.message.process.handshake.failed.ioe

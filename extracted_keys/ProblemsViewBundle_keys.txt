@@ -1,0 +1,12 @@
+problems.view.file.problems
+problems.view.highlighting
+problems.view.highlighting.no.selected.file
+problems.view.highlighting.other.problems.show
+problems.view.highlighting.power.save.mode
+problems.view.highlighting.problems.analyzing
+problems.view.highlighting.problems.not.found
+problems.view.highlighting.problems.not.found.filter
+problems.view.preview.several.files
+problems.view.project
+problems.view.project.empty
+problems.view.project.empty.or

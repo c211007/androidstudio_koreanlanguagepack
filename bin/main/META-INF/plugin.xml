@@ -1,0 +1,26 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.c211007.androidstudiokoreanlanguagepack</id>
+    <name>Korean Language Pack</name>
+    <vendor email="c211007@gmail.com" url="https://github.com/c211007">c211007</vendor>
+    <category>UI Themes</category>
+    <description>안드로이드 스튜디오 한국어 언어팩
+
+Korean language pack for Android Studio. After installation, go to Settings > Appearance &amp; Behavior > Language and Region > Language to select Korean.
+
+설치 후 설정 > 모양 및 동작 > 언어 및 지역 > 언어에서 한국어를 선택하세요.</description>
+
+    <!-- Minimum version requirement -->
+    <idea-version since-build="252" />
+
+    <!-- Core platform dependency -->
+    <depends>com.intellij.modules.platform</depends>
+    <!-- Android Studio specific modules (optional) -->
+    <depends optional="true">com.android.tools.idea</depends>
+
+    <!-- Language bundle extension to enable Korean in Settings -->
+    <extensions defaultExtensionNs="com.intellij">
+        <languageBundle locale="ko"/>
+    </extensions>
+
+</idea-plugin>

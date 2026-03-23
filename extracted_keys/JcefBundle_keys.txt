@@ -1,0 +1,2 @@
+action.RestartJCEFActionId.text
+action.RestartJCEFWithDebugActionId.text

@@ -1,0 +1,5 @@
+configurable.name.android.device.file.explorer
+configurable.name.device.file.explorer
+dialog.message.path.must.be.existing.directory
+dialog.title.device.file.explorer.download.location
+dialog.title.invalid.path

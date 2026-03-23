@@ -1,0 +1,40 @@
+<a href
+dialog.button.send
+dialog.description
+dialog.feedback.consent.withEmail
+dialog.feedback.consent.withoutEmail
+dialog.feedback.segmentedButton.error
+dialog.feedback.system.info.panel.app.version
+dialog.feedback.system.info.panel.app.version.build
+dialog.feedback.system.info.panel.app.version.build.date
+dialog.feedback.system.info.panel.app.version.build.date.time
+dialog.feedback.system.info.panel.cores
+dialog.feedback.system.info.panel.disabled.plugins
+dialog.feedback.system.info.panel.disabled.plugins.empty
+dialog.feedback.system.info.panel.internal.mode.enabled
+dialog.feedback.system.info.panel.license.evaluation
+dialog.feedback.system.info.panel.license.no.info
+dialog.feedback.system.info.panel.license.restrictions
+dialog.feedback.system.info.panel.memory
+dialog.feedback.system.info.panel.nonbundled.plugins
+dialog.feedback.system.info.panel.nonbundled.plugins.empty
+dialog.feedback.system.info.panel.os.version
+dialog.feedback.system.info.panel.registry
+dialog.feedback.system.info.panel.registry.empty
+dialog.feedback.system.info.panel.runtime.version
+dialog.feedback.system.info.title
+dialog.input.label
+dialog.rating.label
+dialog.title
+dialog.top.title
+may process said data using <a href
+notification.dotNotShow.button
+notification.group.feedback
+notification.request.feedback.action.dont.show.text
+notification.request.feedback.action.respond.text
+notification.respond.button
+notification.text
+notification.thanks.feedback.content
+notification.thanks.feedback.title
+notification.title
+s.r.o. may process said data using <a href

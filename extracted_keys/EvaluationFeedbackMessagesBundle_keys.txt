@@ -1,0 +1,13 @@
+evaluation.dialog.cancel.label
+evaluation.dialog.description
+evaluation.dialog.rating.block.hint
+evaluation.dialog.rating.block.label.1
+evaluation.dialog.rating.block.label.2
+evaluation.dialog.rating.block.label.3
+evaluation.dialog.rating.block.label.4
+evaluation.dialog.rating.block.label.5
+evaluation.dialog.rating.block.top.label
+evaluation.dialog.text.area.details
+evaluation.dialog.title
+evaluation.dialog.top.title
+evaluation.notification.thanks.feedback.content
