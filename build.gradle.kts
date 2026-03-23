@@ -135,6 +135,16 @@ tasks {
     publishPlugin {
         dependsOn(patchChangelog)
     }
+
+    // Skip tests if there are no test files
+    test {
+        onlyIf {
+            val testDir = project.file("src/test")
+            testDir.exists() && project.fileTree(testDir).matching {
+                include("**/*Test.kt", "**/*Test.java")
+            }.files.isNotEmpty()
+        }
+    }
 }
 
 intellijPlatformTesting {
