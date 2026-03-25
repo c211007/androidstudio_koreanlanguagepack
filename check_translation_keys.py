@@ -15,6 +15,7 @@ def parse_properties_file(filepath):
     """
     properties 파일을 파싱하여 key 목록을 반환합니다.
     주석과 빈 줄은 무시하고, key=value 형식에서 key만 추출합니다.
+    줄바꿈이 있는 value도 올바르게 처리합니다 (백슬래시로 이어진 줄).
     """
     keys = set()
 
@@ -23,20 +24,40 @@ def parse_properties_file(filepath):
 
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            for line_num, line in enumerate(f, 1):
-                # 공백 제거
-                line = line.strip()
+            lines = f.readlines()
 
-                # 빈 줄이나 주석은 건너뛰기
-                if not line or line.startswith('#') or line.startswith('!'):
-                    continue
+        i = 0
+        while i < len(lines):
+            # 줄 끝의 개행문자 제거
+            line = lines[i].rstrip('\n\r')
 
-                # key=value 형식에서 key 추출
-                # 이스케이프된 = 는 무시하고 첫 번째 = 를 찾음
-                match = re.match(r'^([^=:]+?)[\s]*[=:]', line)
-                if match:
-                    key = match.group(1).strip()
-                    keys.add(key)
+            # 앞뒤 공백 제거하여 체크
+            stripped = line.strip()
+
+            # 빈 줄이나 주석은 건너뛰기
+            if not stripped or stripped.startswith('#') or stripped.startswith('!'):
+                i += 1
+                continue
+
+            # key=value 형식에서 key 추출
+            # 이스케이프된 = 는 무시하고 첫 번째 = 를 찾음
+            match = re.match(r'^([^=:]+?)[\s]*[=:]', stripped)
+            if match:
+                key = match.group(1).strip()
+                keys.add(key)
+
+                # value 부분 가져오기 (줄바꿈 처리를 위해)
+                value_part = stripped[match.end():]
+
+                # 백슬래시로 끝나면 다음 줄과 연결된 것
+                # 백슬래시가 연속되는 동안 계속 읽기
+                while value_part.rstrip().endswith('\\') and i + 1 < len(lines):
+                    i += 1
+                    next_line = lines[i].rstrip('\n\r')
+                    # 다음 줄이 주석이나 빈 줄이 아니면 value에 포함
+                    value_part = next_line.strip()
+
+            i += 1
 
     except Exception as e:
         print(f"⚠️  파일 읽기 오류: {filepath}")
