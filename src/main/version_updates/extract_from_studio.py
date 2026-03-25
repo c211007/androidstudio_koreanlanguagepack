@@ -10,8 +10,39 @@ Android Studio에서 직접 Properties 파일 추출
 import os
 import zipfile
 import shutil
+import platform
 from pathlib import Path
 from datetime import datetime
+
+
+def find_android_studio_path():
+    """Android Studio 설치 경로 자동 검색"""
+    system = platform.system()
+
+    common_paths = []
+    if system == "Windows":
+        common_paths = [
+            Path(os.environ.get("ProgramFiles", "C:\\Program Files")) / "Android" / "Android Studio",
+            Path(os.environ.get("ProgramFiles(x86)", "C:\\Program Files (x86)")) / "Android" / "Android Studio",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Android Studio",
+        ]
+    elif system == "Darwin":  # macOS
+        common_paths = [
+            Path("/Applications/Android Studio.app"),
+            Path.home() / "Applications" / "Android Studio.app",
+        ]
+    elif system == "Linux":
+        common_paths = [
+            Path("/opt/android-studio"),
+            Path.home() / "android-studio",
+            Path("/usr/local/android-studio"),
+        ]
+
+    for path in common_paths:
+        if path.exists():
+            return path
+
+    return None
 
 
 def find_jar_files(directory):

@@ -8,13 +8,21 @@ Android Studio 한국어 번역 플러그인 워크플로우 관리자
 
 import os
 import sys
+import importlib.util
 from pathlib import Path
 
 # 프로젝트 루트 및 스크립트 경로 설정
 SCRIPT_DIR = Path(__file__).parent  # src/main/version_updates 폴더
-PROJECT_ROOT = SCRIPT_DIR.parent.parent.parent  # 프로젝트 루트 (version_updates → main → src → root)
-sys.path.insert(0, str(SCRIPT_DIR))  # version_updates 폴더
-sys.path.insert(0, str(PROJECT_ROOT / "scripts"))  # scripts 폴더
+PROJECT_ROOT = SCRIPT_DIR.parent.parent.parent  # 프로젝트 루트
+
+
+def load_module_from_file(module_name, file_path):
+    """파일에서 모듈을 동적으로 로드"""
+    spec = importlib.util.spec_from_file_location(module_name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
 
 
 def print_header(title):
@@ -42,7 +50,9 @@ def task_check_version():
     print_header("작업 1: Android Studio 버전 확인")
 
     try:
-        from scripts import check_version
+        # check_version 모듈 로드 (version_updates 폴더 내부)
+        check_version_path = SCRIPT_DIR / "check_version.py"
+        check_version = load_module_from_file("check_version", check_version_path)
 
         # 버전 확인 실행
         check_version.main()
@@ -52,7 +62,8 @@ def task_check_version():
         choice = input().strip().lower()
 
         if choice == 'y':
-            import update_plugin_version
+            update_plugin_version_path = SCRIPT_DIR / "update_plugin_version.py"
+            update_plugin_version = load_module_from_file("update_plugin_version", update_plugin_version_path)
             update_plugin_version.main()
 
         print("\n✅ 작업 1 완료!")
@@ -68,20 +79,55 @@ def task_extract_keys():
     print_header("작업 2: Properties Key 재추출")
 
     try:
-        import extract_from_studio
+        # extract_from_studio 모듈 로드
+        extract_from_studio_path = SCRIPT_DIR / "extract_from_studio.py"
+        extract_from_studio = load_module_from_file("extract_from_studio", extract_from_studio_path)
 
-        # Android Studio 경로 입력 받기
-        print("Android Studio 설치 경로를 입력하세요:")
-        print("(예: C:\\Program Files\\Android\\Android Studio)")
-        print("경로: ", end="")
+        # 사용자에게 선택지 제공
+        print("Android Studio 경로 선택:")
+        print("  1. 자동으로 찾기")
+        print("  2. 직접 경로 입력")
+        print("\n선택 (1-2): ", end="")
 
-        studio_path = input().strip()
+        choice = input().strip()
+        studio_path = None
 
-        if not studio_path:
-            print("❌ 경로가 입력되지 않았습니다.")
-            return
+        if choice == '1':
+            # 자동으로 찾기
+            print("\n🔍 Android Studio 경로를 자동으로 검색 중...")
+            auto_path = extract_from_studio.find_android_studio_path()
 
-        studio_path = Path(studio_path)
+            if auto_path:
+                print(f"✅ 발견: {auto_path}")
+                print("\n이 경로를 사용하시겠습니까? (y/n): ", end="")
+                confirm = input().strip().lower()
+
+                if confirm == 'y':
+                    studio_path = auto_path
+                else:
+                    print("\n직접 경로를 입력하세요.")
+            else:
+                print("❌ 자동으로 찾을 수 없습니다.")
+                print("\n직접 경로를 입력하세요.")
+
+        # 자동 검색 실패하거나 선택 2번인 경우 수동 입력
+        if studio_path is None:
+            print("\nAndroid Studio 설치 경로를 입력하세요:")
+            print("\n경로 입력 예시:")
+            print("  Windows: C:\\Program Files\\Android\\Android Studio")
+            print("  macOS:   /Applications/Android Studio.app")
+            print("  Linux:   /opt/android-studio")
+            print("\n경로: ", end="")
+
+            input_path = input().strip()
+
+            if not input_path:
+                print("❌ 경로가 입력되지 않았습니다.")
+                return
+
+            studio_path = Path(input_path)
+
+        # 경로 유효성 확인
         if not studio_path.exists():
             print(f"❌ 경로를 찾을 수 없습니다: {studio_path}")
             return
@@ -102,7 +148,9 @@ def task_compare_keys():
     print_header("작업 3: Key 비교 및 차이점 확인")
 
     try:
-        import compare_extracted_keys
+        # compare_extracted_keys 모듈 로드
+        compare_extracted_keys_path = SCRIPT_DIR / "compare_extracted_keys.py"
+        compare_extracted_keys = load_module_from_file("compare_extracted_keys", compare_extracted_keys_path)
 
         # 비교 실행
         compare_extracted_keys.main()
@@ -124,8 +172,12 @@ def task_merge_translations():
     print_header("작업 4: 번역본 병합")
 
     try:
-        import backup_manager
-        import merge_translations
+        # backup_manager와 merge_translations 모듈 로드
+        backup_manager_path = SCRIPT_DIR / "backup_manager.py"
+        backup_manager = load_module_from_file("backup_manager", backup_manager_path)
+
+        merge_translations_path = SCRIPT_DIR / "merge_translations.py"
+        merge_translations = load_module_from_file("merge_translations", merge_translations_path)
 
         # 현재 플러그인 확인
         messages_dir = PROJECT_ROOT / "src" / "main" / "resources" / "messages"
@@ -168,7 +220,9 @@ def task_rollback():
     print_header("작업 5: 백업 롤백")
 
     try:
-        import backup_manager
+        # backup_manager 모듈 로드
+        backup_manager_path = SCRIPT_DIR / "backup_manager.py"
+        backup_manager = load_module_from_file("backup_manager", backup_manager_path)
 
         # 백업 목록 확인
         backups = backup_manager.list_backups()

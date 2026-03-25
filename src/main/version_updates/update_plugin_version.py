@@ -13,7 +13,9 @@ from pathlib import Path
 
 def read_gradle_properties():
     """gradle.properties 파일 읽기"""
-    gradle_file = Path("gradle.properties")
+    # version_updates 폴더에서 프로젝트 루트로 이동 (3단계 위)
+    project_root = Path(__file__).parent.parent.parent.parent
+    gradle_file = project_root / "gradle.properties"
 
     if not gradle_file.exists():
         return None, None
@@ -35,7 +37,9 @@ def read_gradle_properties():
 
 def update_gradle_properties(updates):
     """gradle.properties 파일 업데이트"""
-    gradle_file = Path("gradle.properties")
+    # version_updates 폴더에서 프로젝트 루트로 이동 (3단계 위)
+    project_root = Path(__file__).parent.parent.parent.parent
+    gradle_file = project_root / "gradle.properties"
 
     if not gradle_file.exists():
         print(f"❌ gradle.properties 파일을 찾을 수 없습니다.")
