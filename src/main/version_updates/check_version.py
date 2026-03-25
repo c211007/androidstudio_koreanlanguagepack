@@ -138,19 +138,27 @@ def check_compatibility(studio_version, plugin_version):
     return None
 
 
-def main():
+def main(studio_path=None):
+    """
+    Android Studio 버전 확인 메인 함수
+
+    Args:
+        studio_path: Android Studio 설치 경로 (Path 객체 또는 None)
+                    None인 경우 자동으로 경로를 찾습니다.
+    """
     print("=" * 80)
     print("Android Studio 버전 확인")
     print("=" * 80)
     print()
 
-    # Android Studio 설치 경로 찾기
-    studio_path = find_android_studio_path()
+    # Android Studio 설치 경로 찾기 (경로가 제공되지 않은 경우)
+    if studio_path is None:
+        studio_path = find_android_studio_path()
 
-    if not studio_path:
-        print("❌ Android Studio를 찾을 수 없습니다.")
-        print("   수동으로 설치 경로를 지정하세요.")
-        return
+        if not studio_path:
+            print("❌ Android Studio를 찾을 수 없습니다.")
+            print("   수동으로 설치 경로를 지정하세요.")
+            return
 
     print(f"✓ Android Studio 경로: {studio_path}")
     print()

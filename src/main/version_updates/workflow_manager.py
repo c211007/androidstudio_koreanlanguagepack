@@ -54,8 +54,57 @@ def task_check_version():
         check_version_path = SCRIPT_DIR / "check_version.py"
         check_version = load_module_from_file("check_version", check_version_path)
 
+        # 사용자에게 선택지 제공
+        print("Android Studio 경로 선택:")
+        print("  1. 자동으로 찾기")
+        print("  2. 직접 경로 입력")
+        print("\n선택 (1-2): ", end="")
+
+        choice = input().strip()
+        studio_path = None
+
+        if choice == '1':
+            # 자동으로 찾기
+            print("\n🔍 Android Studio 경로를 자동으로 검색 중...")
+            auto_path = check_version.find_android_studio_path()
+
+            if auto_path:
+                print(f"✅ 발견: {auto_path}")
+                print("\n이 경로를 사용하시겠습니까? (y/n): ", end="")
+                confirm = input().strip().lower()
+
+                if confirm == 'y':
+                    studio_path = auto_path
+                else:
+                    print("\n직접 경로를 입력하세요.")
+            else:
+                print("❌ 자동으로 찾을 수 없습니다.")
+                print("\n직접 경로를 입력하세요.")
+
+        # 자동 검색 실패하거나 선택 2번인 경우 수동 입력
+        if studio_path is None:
+            print("\nAndroid Studio 설치 경로를 입력하세요:")
+            print("\n경로 입력 예시:")
+            print("  Windows: C:\\Program Files\\Android\\Android Studio")
+            print("  macOS:   /Applications/Android Studio.app")
+            print("  Linux:   /opt/android-studio")
+            print("\n경로: ", end="")
+
+            input_path = input().strip()
+
+            if not input_path:
+                print("❌ 경로가 입력되지 않았습니다.")
+                return
+
+            studio_path = Path(input_path)
+
+        # 경로 유효성 확인
+        if not studio_path.exists():
+            print(f"❌ 경로를 찾을 수 없습니다: {studio_path}")
+            return
+
         # 버전 확인 실행
-        check_version.main()
+        check_version.main(studio_path)
 
         # 버전 업데이트 옵션
         print("\n플러그인 버전을 업데이트하시겠습니까? (y/n): ", end="")
