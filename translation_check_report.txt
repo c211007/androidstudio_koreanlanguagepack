@@ -6,12 +6,220 @@
 누락된 Key 상세 목록:
 --------------------------------------------------------------------------------
 
-[ActionsBundle.properties]
-  action.CollectZippedLogs.text
+[AgpUpgradeBundle.properties]
+  This processor sets `android.builtInKotlin
+
+[AnalysisBundle.properties]
+  parsing.error.no.expected.done.marker.at.offset
+
+[AndroidBundle.properties]
+  <b>Note
+  Generate a signed app bundle for upload to app stores for the following benefits
+  It is recommended to make sure the following paths are added to the Defender folder exclusion list
+  Note
+  Project ''{0}'' is using the following JDK location when running Gradle
+  See <a href
+  The system environment variable JAVA_HOME is
+  WARNING
+  \ It can improve the performance of your app by up to 30%. <a href
+  in accordance with <a href
+  packages
+
+[AndroidWearPairingBundle.properties]
+  <a href
+  Detailed pairing instructions are available. <a href
+  The IDE will start and establish a connection between the devices. <a href
+  devices. Additional installation guidance is available. <a href
+
+[ApplicationBundle.properties]
+  Please <a href
+  Please see the <a href
+
+[BootstrapBundle.properties]
+  If the process seems stuck, please try killing it (WARNING
+  Location
+  Possible reason
+  Stacktrace
+  {0,choice,0#|1#, for command
+  {3}
+
+[CommonFeedbackMessagesBundle.properties]
+  <a href
+  may process said data using <a href
+  s.r.o. may process said data using <a href
+  the <a href
+
+[CredentialStoreBundle.properties]
+  notification.content.in.memory.storage
+
+[DiagnosticBundle.properties]
+  \ in accordance with the relevant <a href
+  in accordance with <a href
+  in accordance with the end-user agreement of <a href
+
+[EditorBundle.properties]
+  darcula.color.scheme.name
+  default.color.scheme.name
+  high.contrast.color.scheme.name
+  intellij.darcula.contrast.scheme.name
+  intellij.dark.scheme.name
+  intellij.light.color.scheme.name
+  intellij.light.scheme.name
+  iw.found.so.far.suffix
+  message.html.editor.timeout
+
+[ExecutionBundle.properties]
+  You can either
+
+[ExternalSystemBundle.properties]
+  - If '<Build system>
+  Example of value for this key
+  The format of values is the single 'all' or comma-separated list of entries like '<Build system>
+
+[IdeBundle.properties]
+  <a href
+  <b>WARNING</b>
+  <br><br><a href
+  <li>Switch to a trial or paid license at any time</li></ul><a href
+  <span style
+  Add ''{0}
+  Enter any URL to check connection to
+  For more information about JVM options, see <a href
+  For more information, refer to the <a href
+  If you need assistance, <a href
+  If you see this message again, try increasing the CodeCache size using <code>-XX
+  Please consider deleting these variables
+  Please quit the IDE and apply the patch manually by launching this script
+  Refer to the <a href
+  Select directories you want to delete
+  The following files have changes that cannot be undone
+  and you have permissions to modify them. <a href
+
+[IdeCoreBundle.properties]
+  Please follow <a href
+
+[InspectionsBundle.properties]
+  Available options are
+
+[LocalizationFeedbackMessagesBundle.properties]
+  <a href
+  may process said data using <a href
+  s.r.o. may process said data using <a href
+
+[OptionsBundle.properties]
+  Customize IDE appearance and behavior
+
+[UIBundle.properties]
+  <tr><td colspan
+  <tr><td> </td><td><b>File mappings in RAM</b>
+  <tr><td> </td><td><b>Total1</b> (anon RAM)
+  <tr><td> </td><td><b>Total2</b> (total1+swap)
+  <tr><td> </td><td>Commited
+  <tr><td> </td><td>File cache
+  <tr><td> </td><td>Internals
+  <tr><td> </td><td>Max
+  <tr><td> </td><td>Others
+  <tr><td> </td><td>Thread stacks
+  <tr><td> </td><td>Used
+
+[WearDwfBundle.properties]
+  A color configuration can have multiple colors as part of a palette. If there are multiple colors, the configuration reference must specify the index of a color within that palette. For example
+  Read more in the <a href
 
 
 추가된 Key 상세 목록:
 --------------------------------------------------------------------------------
 
-[ActionsBundle.properties]
-  collect.zipped.logs.text
+[AgpUpgradeBundle.properties]
+  이 프로세서는 이전 동작(내장 Kotlin 지원 없음)을 유지하기 위해 `gradle.properties`에 `android.builtInKotlin\
+
+[AndroidBundle.properties]
+  <b>참고\
+  \ 앱 성능을 최대 30%까지 향상시킬 수 있습니다. <a href
+  {0}이(가) HTTP 프록시를 사용하도록 구성되었습니다. Gradle이 인터넷에 액세스하기 위해(예\
+  {0}이(가) HTTP 프록시를 사용하지 않도록 구성되었으나, Gradle은 현재 인터넷에 액세스하기 위해(예\
+  경고\
+  다음과 같은 이점을 위해 앱 스토어 업로드용 서명된 앱 번들을 생성합니다\
+  시스템 환경 변수 JAVA_HOME은 다음과 같습니다\
+  자세한 내용은 <a href
+  참고\
+  프로젝트 ''{0}''은(는) Gradle을 실행할 때 다음 JDK 위치를 사용하고 있습니다\
+
+[AndroidWearPairingBundle.properties]
+  <a href\
+  <p>또한 <a href\
+  IDE가 시작되고 장치 간의 연결을 설정합니다. <a href\
+  자세한 페어링 지침을 확인할 수 있습니다. <a href\
+
+[ApplicationBundle.properties]
+  자세한 내용은 <a href
+
+[BootstrapBundle.properties]
+  {0,choice,0#|1#, 명령\
+  {3}\
+  가능한 원인\
+  스택 트레이스\
+  애플리케이션을 종료하고 Finder를 사용하여 다른 디렉토리(예\
+  위치\
+  프로세스가 중단된 것 같으면 강제 종료를 시도하세요(주의\
+
+[CredentialStoreBundle.properties]
+  notification.content.in-memory.storage
+
+[DiagnosticBundle.properties]
+  <a href
+  관련 <a href
+
+[ExecutionBundle.properties]
+  다음 중 하나를 선택할 수 있습니다\
+
+[ExternalSystemBundle.properties]
+  - '<빌드 시스템>
+  IDE는 {0} 빌드 스크립트에서 프로젝트 정보(예\
+  값의 형식은 단일 'all' 또는 '<빌드 시스템>
+  이 키의 값 예\
+
+[IdeBundle.properties]
+  <a href\
+  <b>경고</b>\
+  <br><br><a href\
+  <li>언제든지 평가판 또는 유료 라이선스로 전환</li></ul><a href\
+  <span style\
+  IDE를 종료하고 다음 스크립트를 실행하여 수동으로 패치를 적용하세요\
+  JVM 옵션에 대한 자세한 내용은 <a href\
+  다음 대상에 대한 연결을 확인할 URL을 입력하세요\
+  다음 파일에 실행 취소할 수 없는 변경 사항이 있습니다\
+  도움이 필요하면 <a href\
+  로깅 수준과 별도의 파일을 설정하려면 ''{0}\
+  삭제할 디렉터리를 선택하세요\
+  수정할 권한이 있는지 확인하세요. <a href\
+  이 메시지가 다시 표시되면 <code>-XX\
+  이 변수를 삭제하는 것이 좋습니다\
+  자세한 내용은 <a href\
+  해결 방법은 <a href\
+
+[IdeCoreBundle.properties]
+  <a href\
+
+[InspectionsBundle.properties]
+  사용 가능한 옵션은 다음과 같습니다\
+
+[OptionsBundle.properties]
+  IDE 모양 및 동작 사용자 지정\
+
+[UIBundle.properties]
+  <tr><td colspan\
+  <tr><td> </td><td><b>RAM의 파일 매핑</b>\
+  <tr><td> </td><td><b>총계1</b>(익명 RAM)\
+  <tr><td> </td><td><b>총계2</b>(총계1+스왑)\
+  <tr><td> </td><td>기타\
+  <tr><td> </td><td>내부\
+  <tr><td> </td><td>사용됨\
+  <tr><td> </td><td>스레드 스택\
+  <tr><td> </td><td>최대\
+  <tr><td> </td><td>커밋됨\
+  <tr><td> </td><td>파일 캐시\
+
+[WearDwfBundle.properties]
+  색상 구성은 팔레트의 일부로 여러 색상을 가질 수 있습니다. 색상이 여러 개인 경우 구성 참조는 해당 팔레트 내에서 색상의 인덱스를 지정해야 합니다. 예\
+  자세한 내용은 <a href\
