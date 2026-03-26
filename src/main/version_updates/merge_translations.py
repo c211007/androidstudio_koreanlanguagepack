@@ -14,6 +14,136 @@ from pathlib import Path
 from datetime import datetime
 
 
+def find_latest_extraction():
+    """가장 최근의 추출 디렉토리 찾기"""
+    project_root = Path(__file__).parent.parent.parent.parent  # src/main/version_updates → main → src → root
+    temp_dir = project_root / "temp_extracted"
+
+    if not temp_dir.exists():
+        return None
+
+    # studio_* 형식의 디렉토리 찾기
+    extraction_dirs = [d for d in temp_dir.iterdir() if d.is_dir() and d.name.startswith('studio_')]
+
+    if not extraction_dirs:
+        return None
+
+    # 가장 최근 디렉토리 (이름으로 정렬, 타임스탬프 포함)
+    latest = sorted(extraction_dirs, reverse=True)[0]
+
+    return latest
+
+
+def classify_bundle_file(filename):
+    """
+    번들 파일명으로 android 또는 intellij 분류
+    
+    Returns:
+        str: 'android' 또는 'intellij'
+    """
+    # Android Studio 전용 번들들
+    android_bundles = {
+        'AndroidWearPairingBundle', 'AndroidTestBundle', 'AndroidRunBundle',
+        'AndroidLintBundle', 'AndroidExecutionBundle', 'AndroidBundle',
+        'AndroidAdbUiBundle', 'AgpUpgradeBundle', 'BackupBundle',
+        'BackgroundTaskInspectorBundle', 'AppInspectorBundle', 'AppInspectionBundle',
+        'ApkAnalyzerBundle', 'DatabaseInspectorBundle', 'DaggerBundle',
+        'DeviceFileExplorerBundle', 'DeviceManagerBundle', 'LayoutInspectorBundle',
+        'LogcatBundle', 'RenderingBundle', 'NetworkInspectorBundle',
+        'StreamingBundle', 'SamplesBrowserBundle', 'SymbolPickerBundle',
+        'TemplatesBundle', 'WearDwfBundle', 'WearWhsBundle'
+    }
+    
+    # 파일명에서 Bundle 이름 추출 (.properties 또는 _ko.properties 제거)
+    base_name = filename.replace('_ko.properties', '').replace('.properties', '')
+    
+    if base_name in android_bundles:
+        return 'android'
+    else:
+        return 'intellij'
+
+
+def update_extracted_bundles(project_root, latest_extraction):
+    """
+    병합 후 extracted_bundles를 최신 추출본으로 업데이트
+    
+    Args:
+        project_root: 프로젝트 루트 경로
+        latest_extraction: 최신 추출 디렉토리 경로
+        
+    Returns:
+        bool: 성공 여부
+    """
+    print("\n" + "=" * 80)
+    print("extracted_bundles 업데이트")
+    print("=" * 80 + "\n")
+    
+    extracted_bundles_dir = project_root / "extracted_bundles"
+    
+    # 백업 생성
+    if extracted_bundles_dir.exists():
+        backup_name = f"extracted_bundles_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        backup_path = project_root / backup_name
+        
+        try:
+            print(f"[*] 기존 extracted_bundles 백업 생성 중...")
+            shutil.copytree(extracted_bundles_dir, backup_path)
+            print(f"[OK] 백업 완료: {backup_name}\n")
+        except Exception as e:
+            print(f"[WARNING] 백업 실패: {e}")
+            print("계속 진행합니다...\n")
+    
+    # extracted_bundles 디렉토리 구조 준비
+    android_dir = extracted_bundles_dir / "android" / "messages"
+    intellij_dir = extracted_bundles_dir / "intellij" / "messages"
+    
+    android_dir.mkdir(parents=True, exist_ok=True)
+    intellij_dir.mkdir(parents=True, exist_ok=True)
+    
+    # 최신 추출본의 파일들을 분류하여 복사
+    print(f"[*] 최신 추출본에서 파일 복사 중: {latest_extraction.name}\n")
+    
+    stats = {
+        'android': 0,
+        'intellij': 0,
+        'errors': 0
+    }
+    
+    for prop_file in latest_extraction.glob("*.properties"):
+        try:
+            # 파일 분류
+            category = classify_bundle_file(prop_file.name)
+            
+            # 대상 디렉토리 결정
+            if category == 'android':
+                target_dir = android_dir
+            else:
+                target_dir = intellij_dir
+            
+            # 파일 복사
+            target_file = target_dir / prop_file.name
+            shutil.copy2(prop_file, target_file)
+            
+            stats[category] += 1
+            
+        except Exception as e:
+            print(f"[ERROR] 파일 복사 실패 ({prop_file.name}): {e}")
+            stats['errors'] += 1
+    
+    # 결과 출력
+    print(f"[OK] Android 번들: {stats['android']}개 파일 업데이트")
+    print(f"[OK] IntelliJ 번들: {stats['intellij']}개 파일 업데이트")
+    
+    if stats['errors'] > 0:
+        print(f"[WARNING] 오류: {stats['errors']}개 파일")
+        return False
+    
+    print(f"\n[OK] extracted_bundles 업데이트 완료!")
+    print(f"    다음 작업 3 실행 시 최신 기준점으로 비교됩니다.\n")
+    
+    return True
+
+
 def parse_properties_file(filepath):
     """Properties 파일 파싱 (키-값 쌍 및 원본 라인 유지)"""
     properties = {}
@@ -392,11 +522,42 @@ def merge_translations():
         print("    수동으로 확인해주세요.")
     # ===== 끝 =====
 
-    if stats['errors'] == 0 and plugin_xml_updated:
-        print("[OK] 병합 및 plugin.xml 업데이트가 성공적으로 완료되었습니다.")
+    # ===== extracted_bundles 자동 업데이트 =====
+    # 병합 완료 후 extracted_bundles를 최신 추출본으로 업데이트
+    extracted_bundles_updated = False
+    
+    latest_extraction = find_latest_extraction()
+    
+    if latest_extraction:
+        print(f"[*] 최신 추출본 발견: {latest_extraction.name}")
+        extracted_bundles_updated = update_extracted_bundles(project_root, latest_extraction)
+    else:
+        print("\n[WARNING] temp_extracted에 최신 추출본이 없습니다.")
+        print("    extracted_bundles 업데이트를 건너뜁니다.")
+        print("    다음 번 작업 2(재추출) 실행 후 작업 4를 다시 실행하면 업데이트됩니다.\n")
+    # ===== 끝 =====
+
+    # 최종 결과
+    if stats['errors'] == 0 and plugin_xml_updated and extracted_bundles_updated:
+        print("\n" + "=" * 80)
+        print("[OK] ✅ 모든 작업이 성공적으로 완료되었습니다!")
+        print("=" * 80)
+        print("\n완료된 작업:")
+        print("  ✅ 번역 파일 병합")
+        print("  ✅ plugin.xml 업데이트")
+        print("  ✅ extracted_bundles 업데이트")
+        print("\n다음 버전 업데이트 시 작업 3에서 정확한 비교가 가능합니다.\n")
+        return True
+    elif stats['errors'] == 0 and plugin_xml_updated:
+        print("\n" + "=" * 80)
+        print("[OK] 병합 및 plugin.xml 업데이트 완료")
+        print("=" * 80)
+        if not extracted_bundles_updated:
+            print("\n[INFO] extracted_bundles는 업데이트되지 않았습니다.")
+            print("       (최신 추출본이 없음)")
         return True
     elif stats['errors'] == 0:
-        print("[OK] 병합 완료 (plugin.xml 업데이트는 수동 확인 필요)")
+        print("[OK] 병합 완료 (일부 업데이트는 수동 확인 필요)")
         return True
     else:
         print("[WARNING] 일부 오류가 발생했습니다.")
