@@ -96,23 +96,30 @@ def compare_with_existing():
 
     print(f"📂 최신 추출본: {latest_extraction.name}\n")
 
-    # 기존 한국어 번역 파일 수집 (src/main/resources/messages/)
-    messages_dir = project_root / "src" / "main" / "resources" / "messages"
+    # 기존 영어 원본 파일 수집 (extracted_bundles/)
+    extracted_bundles_dir = project_root / "extracted_bundles"
 
-    if not messages_dir.exists():
-        print("❌ src/main/resources/messages 디렉토리를 찾을 수 없습니다.")
-        return None
+    if not extracted_bundles_dir.exists():
+        print("❌ extracted_bundles 디렉토리를 찾을 수 없습니다.")
+        print("   이것은 첫 번째 추출일 수 있습니다.")
+        print("   모든 파일이 '완전히 새로운 파일'로 표시됩니다.\n")
+        existing_files = {}
+    else:
+        existing_files = {}
 
-    existing_files = {}
+        # android 번들 로드
+        android_dir = extracted_bundles_dir / "android" / "messages"
+        if android_dir.exists():
+            for prop_file in android_dir.glob("*.properties"):
+                existing_files[prop_file.name] = parse_properties_file(prop_file)
 
-    # _ko.properties 파일들을 로드하되, 키는 base filename으로 저장
-    # 예: ActionsBundle_ko.properties의 키는 "ActionsBundle.properties"로 저장
-    for prop_file in messages_dir.glob("*_ko.properties"):
-        # _ko 접미사를 제거한 base filename 생성
-        base_filename = prop_file.name.replace("_ko.properties", ".properties")
-        existing_files[base_filename] = parse_properties_file(prop_file)
+        # intellij 번들 로드
+        intellij_dir = extracted_bundles_dir / "intellij" / "messages"
+        if intellij_dir.exists():
+            for prop_file in intellij_dir.glob("*.properties"):
+                existing_files[prop_file.name] = parse_properties_file(prop_file)
 
-    print(f"📂 기존 한국어 파일 수: {len(existing_files)}개\n")
+        print(f"📂 기존 영어 원본 파일 수: {len(existing_files)}개 (extracted_bundles)\n")
 
     # 새로 추출된 파일 수집
     new_files = {}
@@ -152,7 +159,7 @@ def compare_with_existing():
             missing_data['stats']['completely_new_files'] += 1
             missing_data['stats']['total_missing_keys'] += len(new_keys)
 
-    # 기존 파일에서 누락/변경된 키 찾기
+    # 기존 영어 원본에서 누락/변경된 키 찾기
     for filename, new_keys in new_files.items():
         if filename in existing_files:
             existing_keys = existing_files[filename]
@@ -162,13 +169,13 @@ def compare_with_existing():
 
             for key, new_value in new_keys.items():
                 if key not in existing_keys:
-                    # 누락된 키
+                    # 새로 추가된 키 (이전 버전에는 없었음)
                     missing[key] = new_value
                 elif existing_keys[key] != new_value:
-                    # 값이 변경된 키
+                    # 값이 변경된 키 (영어 원본이 수정됨)
                     modified[key] = {
-                        'old': existing_keys[key],
-                        'new': new_value
+                        'old': existing_keys[key],  # 이전 버전 영어 원본
+                        'new': new_value             # 새 버전 영어 원본
                     }
 
             if missing:
@@ -198,12 +205,12 @@ def print_comparison_summary(data):
     print("비교 결과 요약")
     print("=" * 80)
     print(f"\n새 추출본 파일 수: {stats['total_new_files']}개")
-    print(f"기존 파일 수: {stats['total_existing_files']}개\n")
+    print(f"기존 영어 원본 파일 수: {stats['total_existing_files']}개\n")
     print(f"🆕 완전히 새로운 파일: {stats['completely_new_files']}개")
-    print(f"⚠️  누락된 키가 있는 파일: {stats['files_with_missing_keys']}개")
-    print(f"📝 값이 변경된 키가 있는 파일: {stats['files_with_modified_keys']}개\n")
-    print(f"총 누락된 키: {stats['total_missing_keys']}개")
-    print(f"총 변경된 키: {stats['total_modified_keys']}개")
+    print(f"⚠️  새로 추가된 키가 있는 파일: {stats['files_with_missing_keys']}개")
+    print(f"📝 영어 원본이 수정된 키가 있는 파일: {stats['files_with_modified_keys']}개\n")
+    print(f"총 새로 추가된 키: {stats['total_missing_keys']}개")
+    print(f"총 수정된 키: {stats['total_modified_keys']}개")
 
     if data['new_files']:
         print(f"\n완전히 새로운 파일 목록:")
@@ -213,9 +220,9 @@ def print_comparison_summary(data):
             print(f"  ... 외 {len(data['new_files']) - 10}개")
 
     if data['missing_keys']:
-        print(f"\n누락된 키가 있는 파일:")
+        print(f"\n새로 추가된 키가 있는 파일:")
         for filename, keys in list(data['missing_keys'].items())[:10]:
-            print(f"  - {filename} ({len(keys)}개 키 누락)")
+            print(f"  - {filename} ({len(keys)}개 키 추가됨)")
         if len(data['missing_keys']) > 10:
             print(f"  ... 외 {len(data['missing_keys']) - 10}개")
 
@@ -263,15 +270,15 @@ def save_comparison_results(data, base_dir):
                     f.write(f"... 외 {file_info['key_count'] - 5}개의 키\n")
                     f.write(f"(전체 내용은 missing_keys.json 파일 참조)\n\n")
 
-        # 누락된 키들
+        # 새로 추가된 키들
         if data['missing_keys']:
             f.write(f"\n{'=' * 80}\n")
-            f.write(f"기존 파일에서 누락된 키 ({len(data['missing_keys'])}개 파일)\n")
+            f.write(f"새로 추가된 키 ({len(data['missing_keys'])}개 파일)\n")
             f.write(f"{'=' * 80}\n\n")
 
             for filename, keys in list(data['missing_keys'].items())[:10]:
                 f.write(f"\n### 파일: {filename} ###\n")
-                f.write(f"# 누락된 키: {len(keys)}개\n\n")
+                f.write(f"# 새로 추가된 키: {len(keys)}개\n\n")
 
                 for i, (key, value) in enumerate(list(keys.items())[:3], 1):
                     f.write(f"KEY: {key}\n")
@@ -281,21 +288,22 @@ def save_comparison_results(data, base_dir):
                 if len(keys) > 3:
                     f.write(f"... 외 {len(keys) - 3}개의 키\n\n")
 
-        # 변경된 키들
+        # 영어 원본이 수정된 키들
         if data['modified_keys']:
             f.write(f"\n{'=' * 80}\n")
-            f.write(f"값이 변경된 키 ({len(data['modified_keys'])}개 파일)\n")
-            f.write(f"{'=' * 80}\n\n")
+            f.write(f"영어 원본이 수정된 키 ({len(data['modified_keys'])}개 파일)\n")
+            f.write(f"{'=' * 80}\n")
+            f.write(f"# 주의: 영어 원본이 변경되었으므로 한국어 번역도 업데이트가 필요할 수 있습니다.\n\n")
 
             for filename, keys in list(data['modified_keys'].items())[:5]:
                 f.write(f"\n### 파일: {filename} ###\n")
-                f.write(f"# 변경된 키: {len(keys)}개\n\n")
+                f.write(f"# 수정된 키: {len(keys)}개\n\n")
 
                 for i, (key, values) in enumerate(list(keys.items())[:3], 1):
                     f.write(f"KEY: {key}\n")
-                    f.write(f"OLD: {values['old']}\n")
-                    f.write(f"NEW: {values['new']}\n")
-                    f.write(f"TRANSLATE: \n\n")
+                    f.write(f"OLD (이전 영어): {values['old']}\n")
+                    f.write(f"NEW (새 영어): {values['new']}\n")
+                    f.write(f"TRANSLATE (새 한국어): \n\n")
 
                 if len(keys) > 3:
                     f.write(f"... 외 {len(keys) - 3}개의 키\n\n")

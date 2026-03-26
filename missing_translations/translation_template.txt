@@ -1,12 +1,12 @@
 # ============================================================================
 # 번역 작업 템플릿
-# 생성 일시: 2026-03-25 23:12:11.193644
-# 추출본: studio_20260325_231119
+# 생성 일시: 2026-03-27 01:01:08.811566
+# 추출본: studio_20260327_005305
 # ============================================================================
 
 
 ================================================================================
-완전히 새로운 파일 (245개)
+완전히 새로운 파일 (243개)
 ================================================================================
 
 
@@ -34,60 +34,6 @@ ORIGINAL: Deleting {0}\u2026
 TRANSLATE: 
 
 ... 외 44개의 키
-(전체 내용은 missing_keys.json 파일 참조)
-
-
-### 파일: AgreementsBundle_ja.properties ###
-# 총 14개의 키
-
-KEY: dataSharing.applyToAll.hint
-ORIGINAL: データ共有設定は、インストールされているすべての {0} 製品に適用されます。
-TRANSLATE: 
-
-KEY: dataSharing.consents.title
-ORIGINAL: データ共有
-TRANSLATE: 
-
-KEY: dataSharing.dialog.accept
-ORIGINAL: 匿名の統計情報を送信する
-TRANSLATE: 
-
-KEY: dataSharing.dialog.decline
-ORIGINAL: 送信しない
-TRANSLATE: 
-
-KEY: dataSharing.dialog.title
-ORIGINAL: データの共有
-TRANSLATE: 
-
-... 외 9개의 키
-(전체 내용은 missing_keys.json 파일 참조)
-
-
-### 파일: AgreementsBundle_zh_CN.properties ###
-# 총 14개의 키
-
-KEY: dataSharing.applyToAll.hint
-ORIGINAL: 数据共享偏好设置适用于所有已安装的 {0} 产品。
-TRANSLATE: 
-
-KEY: dataSharing.consents.title
-ORIGINAL: 数据共享
-TRANSLATE: 
-
-KEY: dataSharing.dialog.accept
-ORIGINAL: 发送匿名统计信息
-TRANSLATE: 
-
-KEY: dataSharing.dialog.decline
-ORIGINAL: 不发送
-TRANSLATE: 
-
-KEY: dataSharing.dialog.title
-ORIGINAL: 数据共享
-TRANSLATE: 
-
-... 외 9개의 키
 (전체 내용은 missing_keys.json 파일 참조)
 
 
