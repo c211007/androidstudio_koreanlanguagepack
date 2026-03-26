@@ -11,8 +11,53 @@ import os
 import zipfile
 import shutil
 import platform
+import re
 from pathlib import Path
 from datetime import datetime
+
+
+def is_english_base_file(filename):
+    """
+    Check if a properties file is an English base file (no language suffix).
+
+    Returns True only for base files like 'ActionsBundle.properties'
+    Returns False for language-specific files like:
+    - ActionsBundle_ja.properties (Japanese)
+    - ActionsBundle_zh_CN.properties (Chinese Simplified)
+    - ActionsBundle_zh_TW.properties (Chinese Traditional)
+    - ActionsBundle_ko.properties (Korean)
+    - ActionsBundle_en.properties (English explicit)
+    """
+    # Language suffix patterns to exclude
+    language_suffixes = [
+        '_ja',      # Japanese
+        '_zh_CN',   # Chinese Simplified
+        '_zh_TW',   # Chinese Traditional
+        '_zh_HK',   # Chinese Hong Kong
+        '_ko',      # Korean
+        '_kr',      # Korean (alternative)
+        '_en',      # English (explicit)
+        '_fr',      # French
+        '_de',      # German
+        '_es',      # Spanish
+        '_pt',      # Portuguese
+        '_ru',      # Russian
+        '_it',      # Italian
+    ]
+
+    # Check if filename ends with any language suffix before .properties
+    filename_lower = filename.lower()
+    for suffix in language_suffixes:
+        if filename_lower.endswith(suffix + '.properties'):
+            return False
+
+    # Also check for pattern _XX.properties or _XX_YY.properties
+    # where XX is 2 lowercase letters and YY is 2 uppercase letters
+    pattern = r'_[a-z]{2}(_[A-Z]{2})?\.properties$'
+    if re.search(pattern, filename):
+        return False
+
+    return True
 
 
 def find_android_studio_path():
@@ -88,8 +133,10 @@ def extract_properties_from_jar(jar_path, output_dir, verbose=False):
             for prop_file in properties_files:
                 filename = Path(prop_file).name
 
-                # 한국어 파일(_ko.properties)는 제외
-                if '_ko.properties' in filename or '_kr.properties' in filename:
+                # ONLY include English base files (no language suffix)
+                if not is_english_base_file(filename):
+                    if verbose:
+                        print(f"  ⊘ Skipped (non-English): {filename}")
                     continue
 
                 output_path = output_dir / filename

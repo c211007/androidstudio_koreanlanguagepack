@@ -145,6 +145,15 @@ def main(studio_path=None):
     Args:
         studio_path: Android Studio 설치 경로 (Path 객체 또는 None)
                     None인 경우 자동으로 경로를 찾습니다.
+
+    Returns:
+        dict: 버전 정보 딕셔너리 또는 None
+              {
+                  'studio_version': {...},
+                  'plugin_version': {...},
+                  'compatible': bool,
+                  'parsed_build': {...}
+              }
     """
     print("=" * 80)
     print("Android Studio 버전 확인")
@@ -158,7 +167,7 @@ def main(studio_path=None):
         if not studio_path:
             print("❌ Android Studio를 찾을 수 없습니다.")
             print("   수동으로 설치 경로를 지정하세요.")
-            return
+            return None
 
     print(f"✓ Android Studio 경로: {studio_path}")
     print()
@@ -180,7 +189,7 @@ def main(studio_path=None):
         print()
     else:
         print("❌ 버전 정보를 가져올 수 없습니다.")
-        return
+        return None
 
     # 현재 플러그인 버전 확인
     plugin_version = get_current_plugin_version()
@@ -193,7 +202,7 @@ def main(studio_path=None):
         print()
     else:
         print("❌ 플러그인 버전 정보를 가져올 수 없습니다.")
-        return
+        return None
 
     # 호환성 확인
     compatible = check_compatibility(studio_version, plugin_version)
@@ -231,6 +240,14 @@ def main(studio_path=None):
 
     print()
     print("=" * 80)
+
+    # 버전 정보 반환
+    return {
+        'studio_version': studio_version,
+        'plugin_version': plugin_version,
+        'compatible': compatible,
+        'parsed_build': parsed
+    }
 
 
 if __name__ == "__main__":

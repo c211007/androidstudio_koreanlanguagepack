@@ -90,6 +90,148 @@ def update_gradle_properties(updates):
         return False
 
 
+def calculate_platform_version(major_build):
+    """
+    major build number로부터 platform version 계산
+
+    Args:
+        major_build: 빌드 번호의 major 부분 (예: "242")
+
+    Returns:
+        str: platform version (예: "2024.2")
+    """
+    try:
+        build_num = int(major_build)
+
+        # 빌드 번호 패턴: YYX 형식
+        # 예: 242 → 2024.2, 241 → 2024.1, 233 → 2023.3
+        year_part = build_num // 10  # 24
+        version_part = build_num % 10  # 2
+
+        year = 2000 + year_part  # 2024
+
+        return f"{year}.{version_part}"
+    except:
+        return None
+
+
+def increment_patch_version(current_version):
+    """
+    플러그인 버전의 패치 번호 증가
+
+    Args:
+        current_version: 현재 버전 (예: "1.0.5")
+
+    Returns:
+        str: 증가된 버전 (예: "1.0.6")
+    """
+    try:
+        parts = current_version.split('.')
+        if len(parts) >= 3:
+            major, minor, patch = parts[0], parts[1], parts[2]
+            new_patch = int(patch) + 1
+            return f"{major}.{minor}.{new_patch}"
+        else:
+            # 패치가 없으면 .1 추가
+            return f"{current_version}.1"
+    except:
+        return current_version
+
+
+def auto_update_from_studio_version(studio_version_info):
+    """
+    Android Studio 버전 정보로부터 자동으로 gradle.properties 업데이트
+
+    Args:
+        studio_version_info: check_version.main()에서 반환된 버전 정보 딕셔너리
+
+    Returns:
+        bool: 성공 여부
+    """
+    print("\n" + "=" * 80)
+    print("플러그인 버전 자동 업데이트")
+    print("=" * 80 + "\n")
+
+    if not studio_version_info:
+        print("❌ 버전 정보가 없습니다.")
+        return False
+
+    studio_version = studio_version_info.get('studio_version')
+    plugin_version = studio_version_info.get('plugin_version')
+    parsed_build = studio_version_info.get('parsed_build')
+
+    if not studio_version or not parsed_build:
+        print("❌ Android Studio 버전 정보를 파싱할 수 없습니다.")
+        return False
+
+    # 버전 정보 계산
+    major_build = parsed_build.get('majorBuild')
+
+    if not major_build:
+        print("❌ 빌드 번호를 파싱할 수 없습니다.")
+        return False
+
+    # platformVersion 계산
+    platform_version = calculate_platform_version(major_build)
+
+    if not platform_version:
+        print("❌ 플랫폼 버전을 계산할 수 없습니다.")
+        return False
+
+    # pluginSinceBuild: major build 사용
+    plugin_since_build = major_build
+
+    # pluginUntilBuild: major build.* 형식
+    plugin_until_build = f"{major_build}.*"
+
+    # pluginVersion: 패치 버전 증가
+    current_plugin_version = plugin_version.get('pluginVersion', '1.0.0')
+    new_plugin_version = increment_patch_version(current_plugin_version)
+
+    print("Android Studio 버전 정보:")
+    print(f"  버전: {studio_version.get('version', 'N/A')}")
+    print(f"  빌드 번호: {studio_version.get('buildNumber', 'N/A')}")
+    print(f"  Major Build: {major_build}")
+    print()
+
+    print("자동 계산된 플러그인 설정:")
+    print(f"  platformVersion: {platform_version}")
+    print(f"  pluginSinceBuild: {plugin_since_build}")
+    print(f"  pluginUntilBuild: {plugin_until_build}")
+    print(f"  pluginVersion: {current_plugin_version} → {new_plugin_version}")
+    print()
+
+    # 업데이트할 항목
+    updates = {
+        'platformVersion': platform_version,
+        'pluginSinceBuild': plugin_since_build,
+        'pluginUntilBuild': plugin_until_build,
+        'pluginVersion': new_plugin_version
+    }
+
+    print("다음 항목이 업데이트됩니다:")
+    for key, value in updates.items():
+        old_value = plugin_version.get(key.replace('plugin', '').replace('platform', 'platform'), 'N/A')
+        if key == 'platformVersion':
+            old_value = plugin_version.get('platformVersion', 'N/A')
+        elif key == 'pluginVersion':
+            old_value = plugin_version.get('pluginVersion', 'N/A')
+        elif key == 'pluginSinceBuild':
+            old_value = plugin_version.get('sinceBuild', 'N/A')
+
+        print(f"  {key}: {old_value} → {value}")
+
+    print("\n이 설정으로 업데이트하시겠습니까? (y/n): ", end="")
+    confirm = input().strip().lower()
+
+    if confirm == 'y':
+        print()
+        return update_gradle_properties(updates)
+    else:
+        print("\n취소되었습니다.")
+        return False
+
+
 def main():
     """메인 함수"""
     print("\n" + "=" * 80)

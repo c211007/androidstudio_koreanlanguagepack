@@ -96,29 +96,23 @@ def compare_with_existing():
 
     print(f"📂 최신 추출본: {latest_extraction.name}\n")
 
-    # 기존 extracted_bundles 디렉토리
-    extracted_bundles = project_root / "extracted_bundles"
+    # 기존 한국어 번역 파일 수집 (src/main/resources/messages/)
+    messages_dir = project_root / "src" / "main" / "resources" / "messages"
 
-    if not extracted_bundles.exists():
-        print("❌ extracted_bundles 디렉토리를 찾을 수 없습니다.")
+    if not messages_dir.exists():
+        print("❌ src/main/resources/messages 디렉토리를 찾을 수 없습니다.")
         return None
 
-    # 기존 파일 수집 (intellij, android 등 하위 폴더에서)
     existing_files = {}
-    for subdir in extracted_bundles.iterdir():
-        if subdir.is_dir():
-            messages_dir = subdir / "messages"
-            if messages_dir.exists():
-                for prop_file in messages_dir.glob("*.properties"):
-                    filename = prop_file.name
-                    if filename not in existing_files:
-                        existing_files[filename] = parse_properties_file(prop_file)
-                    else:
-                        # 여러 소스에서 같은 파일 발견 시 병합
-                        new_keys = parse_properties_file(prop_file)
-                        existing_files[filename].update(new_keys)
 
-    print(f"📂 기존 파일 수: {len(existing_files)}개\n")
+    # _ko.properties 파일들을 로드하되, 키는 base filename으로 저장
+    # 예: ActionsBundle_ko.properties의 키는 "ActionsBundle.properties"로 저장
+    for prop_file in messages_dir.glob("*_ko.properties"):
+        # _ko 접미사를 제거한 base filename 생성
+        base_filename = prop_file.name.replace("_ko.properties", ".properties")
+        existing_files[base_filename] = parse_properties_file(prop_file)
+
+    print(f"📂 기존 한국어 파일 수: {len(existing_files)}개\n")
 
     # 새로 추출된 파일 수집
     new_files = {}

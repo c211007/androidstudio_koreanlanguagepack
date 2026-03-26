@@ -46,8 +46,8 @@ def print_menu():
 
 
 def task_check_version():
-    """작업 1: Android Studio 버전 확인 및 플러그인 버전 수정"""
-    print_header("작업 1: Android Studio 버전 확인")
+    """작업 1: Android Studio 버전 확인 및 플러그인 버전 자동 수정"""
+    print_header("작업 1: Android Studio 버전 확인 및 플러그인 버전 수정")
 
     try:
         # check_version 모듈 로드 (version_updates 폴더 내부)
@@ -65,11 +65,11 @@ def task_check_version():
 
         if choice == '1':
             # 자동으로 찾기
-            print("\n🔍 Android Studio 경로를 자동으로 검색 중...")
+            print("\n[*] Android Studio 경로를 자동으로 검색 중...")
             auto_path = check_version.find_android_studio_path()
 
             if auto_path:
-                print(f"✅ 발견: {auto_path}")
+                print(f"[OK] 발견: {auto_path}")
                 print("\n이 경로를 사용하시겠습니까? (y/n): ", end="")
                 confirm = input().strip().lower()
 
@@ -78,7 +78,7 @@ def task_check_version():
                 else:
                     print("\n직접 경로를 입력하세요.")
             else:
-                print("❌ 자동으로 찾을 수 없습니다.")
+                print("[ERROR] 자동으로 찾을 수 없습니다.")
                 print("\n직접 경로를 입력하세요.")
 
         # 자동 검색 실패하거나 선택 2번인 경우 수동 입력
@@ -93,32 +93,41 @@ def task_check_version():
             input_path = input().strip()
 
             if not input_path:
-                print("❌ 경로가 입력되지 않았습니다.")
+                print("[ERROR] 경로가 입력되지 않았습니다.")
                 return
 
             studio_path = Path(input_path)
 
         # 경로 유효성 확인
         if not studio_path.exists():
-            print(f"❌ 경로를 찾을 수 없습니다: {studio_path}")
+            print(f"[ERROR] 경로를 찾을 수 없습니다: {studio_path}")
             return
 
-        # 버전 확인 실행
-        check_version.main(studio_path)
+        # 버전 확인 실행 (버전 정보 반환받기)
+        version_info = check_version.main(studio_path)
 
-        # 버전 업데이트 옵션
-        print("\n플러그인 버전을 업데이트하시겠습니까? (y/n): ", end="")
-        choice = input().strip().lower()
+        if not version_info:
+            print("\n[ERROR] 버전 정보를 가져올 수 없습니다.")
+            return
 
-        if choice == 'y':
-            update_plugin_version_path = SCRIPT_DIR / "update_plugin_version.py"
-            update_plugin_version = load_module_from_file("update_plugin_version", update_plugin_version_path)
-            update_plugin_version.main()
+        # 플러그인 버전 자동 업데이트
+        print("\n" + "=" * 80)
+        print("플러그인 버전 자동 업데이트 시작")
+        print("=" * 80 + "\n")
 
-        print("\n✅ 작업 1 완료!")
+        update_plugin_version_path = SCRIPT_DIR / "update_plugin_version.py"
+        update_plugin_version = load_module_from_file("update_plugin_version", update_plugin_version_path)
+
+        # 자동 업데이트 실행
+        success = update_plugin_version.auto_update_from_studio_version(version_info)
+
+        if success:
+            print("\n[OK] 작업 1 완료!")
+        else:
+            print("\n[WARNING] 플러그인 버전 업데이트를 건너뛰었습니다.")
 
     except Exception as e:
-        print(f"\n❌ 오류 발생: {e}")
+        print(f"\n[ERROR] 오류 발생: {e}")
         import traceback
         traceback.print_exc()
 
