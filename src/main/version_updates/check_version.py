@@ -104,19 +104,56 @@ def get_current_plugin_version():
 
 
 def parse_build_number(build_number):
-    """빌드 번호 파싱 (예: AI-242.21829.142.2421.12550806)"""
+    """
+    빌드 번호 파싱 (예: AI-242.21829.142.2421.12550806)
+
+    지원 형식:
+    - AI-242.21829.142.2421.12550806 (Product-Major.Minor.Patch.Extra)
+    - 242.21829.142 (Major.Minor.Patch)
+    - AI-242 (Product-Major)
+    """
+    if not build_number:
+        return None
+
+    # 디버깅: 빌드 번호 출력
+    print(f"[DEBUG] parse_build_number 입력: '{build_number}'")
+
     # 형식: <Product Code>-<Build Number>.<Patch>
     parts = build_number.split('-')
+
     if len(parts) >= 2:
+        # AI-242.21829.142 형식
         product_code = parts[0]
         build_parts = parts[1].split('.')
-        return {
+        result = {
             'productCode': product_code,
             'majorBuild': build_parts[0] if len(build_parts) > 0 else None,
             'minorBuild': build_parts[1] if len(build_parts) > 1 else None,
             'full': build_number
         }
-    return None
+        print(f"[DEBUG] parse_build_number 결과: {result}")
+        return result
+    elif '.' in build_number:
+        # 242.21829.142 형식 (Product code 없음)
+        build_parts = build_number.split('.')
+        result = {
+            'productCode': None,
+            'majorBuild': build_parts[0] if len(build_parts) > 0 else None,
+            'minorBuild': build_parts[1] if len(build_parts) > 1 else None,
+            'full': build_number
+        }
+        print(f"[DEBUG] parse_build_number 결과 (dot only): {result}")
+        return result
+    else:
+        # 단순 번호 형식 (242)
+        result = {
+            'productCode': None,
+            'majorBuild': build_number,
+            'minorBuild': None,
+            'full': build_number
+        }
+        print(f"[DEBUG] parse_build_number 결과 (simple): {result}")
+        return result
 
 
 def check_compatibility(studio_version, plugin_version):

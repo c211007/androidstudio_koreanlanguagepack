@@ -138,6 +138,50 @@ def increment_patch_version(current_version):
         return current_version
 
 
+def parse_build_number_local(build_number):
+    """
+    빌드 번호 파싱 (로컬 버전)
+
+    지원 형식:
+    - AI-242.21829.142.2421.12550806 (Product-Major.Minor.Patch.Extra)
+    - 242.21829.142 (Major.Minor.Patch)
+    - AI-242 (Product-Major)
+    """
+    if not build_number:
+        return None
+
+    # 형식: <Product Code>-<Build Number>.<Patch>
+    parts = build_number.split('-')
+
+    if len(parts) >= 2:
+        # AI-242.21829.142 형식
+        product_code = parts[0]
+        build_parts = parts[1].split('.')
+        return {
+            'productCode': product_code,
+            'majorBuild': build_parts[0] if len(build_parts) > 0 else None,
+            'minorBuild': build_parts[1] if len(build_parts) > 1 else None,
+            'full': build_number
+        }
+    elif '.' in build_number:
+        # 242.21829.142 형식 (Product code 없음)
+        build_parts = build_number.split('.')
+        return {
+            'productCode': None,
+            'majorBuild': build_parts[0] if len(build_parts) > 0 else None,
+            'minorBuild': build_parts[1] if len(build_parts) > 1 else None,
+            'full': build_number
+        }
+    else:
+        # 단순 번호 형식 (242)
+        return {
+            'productCode': None,
+            'majorBuild': build_number,
+            'minorBuild': None,
+            'full': build_number
+        }
+
+
 def auto_update_from_studio_version(studio_version_info):
     """
     Android Studio 버전 정보로부터 자동으로 gradle.properties 업데이트
@@ -153,15 +197,41 @@ def auto_update_from_studio_version(studio_version_info):
     print("=" * 80 + "\n")
 
     if not studio_version_info:
-        print("❌ 버전 정보가 없습니다.")
+        print("[ERROR] 버전 정보가 없습니다.")
         return False
 
     studio_version = studio_version_info.get('studio_version')
     plugin_version = studio_version_info.get('plugin_version')
     parsed_build = studio_version_info.get('parsed_build')
 
+    # 디버깅 정보 출력
+    print("[DEBUG] 버전 정보 확인:")
+    print(f"  studio_version: {studio_version}")
+    print(f"  parsed_build: {parsed_build}")
+    print()
+
+    # parsed_build가 None이면 빌드 번호를 다시 파싱 시도
+    if not parsed_build and studio_version:
+        build_number = studio_version.get('buildNumber', '')
+        print(f"[INFO] 빌드 번호 재파싱 시도: {build_number}")
+
+        # parse_build_number 로컬 함수 호출
+        parsed_build = parse_build_number_local(build_number)
+
+        if parsed_build:
+            print(f"[OK] 재파싱 성공: {parsed_build}")
+        else:
+            print(f"[ERROR] 재파싱 실패")
+        print()
+
     if not studio_version or not parsed_build:
-        print("❌ Android Studio 버전 정보를 파싱할 수 없습니다.")
+        print("[ERROR] Android Studio 버전 정보를 파싱할 수 없습니다.")
+        print("[INFO] studio_version 존재:", "Yes" if studio_version else "No")
+        print("[INFO] parsed_build 존재:", "Yes" if parsed_build else "No")
+
+        if studio_version:
+            print(f"[INFO] 빌드 번호: {studio_version.get('buildNumber', 'N/A')}")
+
         return False
 
     # 버전 정보 계산
