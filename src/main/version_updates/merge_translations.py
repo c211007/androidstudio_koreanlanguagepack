@@ -36,31 +36,50 @@ def find_latest_extraction():
 
 def classify_bundle_file(filename):
     """
-    번들 파일명으로 android 또는 intellij 분류
+    번들 파일명으로 android 또는 intellij 분류 (패턴 기반)
+    
+    Args:
+        filename: 번들 파일명 (예: 'AndroidBundle_ko.properties')
     
     Returns:
         str: 'android' 또는 'intellij'
     """
-    # Android Studio 전용 번들들
-    android_bundles = {
-        'AndroidWearPairingBundle', 'AndroidTestBundle', 'AndroidRunBundle',
-        'AndroidLintBundle', 'AndroidExecutionBundle', 'AndroidBundle',
-        'AndroidAdbUiBundle', 'AgpUpgradeBundle', 'BackupBundle',
-        'BackgroundTaskInspectorBundle', 'AppInspectorBundle', 'AppInspectionBundle',
-        'ApkAnalyzerBundle', 'DatabaseInspectorBundle', 'DaggerBundle',
-        'DeviceFileExplorerBundle', 'DeviceManagerBundle', 'LayoutInspectorBundle',
-        'LogcatBundle', 'RenderingBundle', 'NetworkInspectorBundle',
-        'StreamingBundle', 'SamplesBrowserBundle', 'SymbolPickerBundle',
-        'TemplatesBundle', 'WearDwfBundle', 'WearWhsBundle'
-    }
-    
     # 파일명에서 Bundle 이름 추출 (.properties 또는 _ko.properties 제거)
     base_name = filename.replace('_ko.properties', '').replace('.properties', '')
     
-    if base_name in android_bundles:
-        return 'android'
-    else:
-        return 'intellij'
+    # Android Studio 전용 패턴 리스트
+    # 파일명에 이 패턴이 포함되면 android로 분류
+    android_patterns = [
+        'Android',          # AndroidBundle, AndroidTestBundle, AndroidLintBundle, AndroidRunBundle, etc.
+        'Agp',             # AgpUpgradeBundle
+        'Agents',          # AgentsCoreBundle (Studio AI Agent 관련)
+        'Backup',          # BackupBundle
+        'AppInspect',      # AppInspectorBundle, AppInspectionBundle
+        'Apk',             # ApkAnalyzerBundle
+        'Dagger',          # DaggerBundle
+        'Database',        # DatabaseInspectorBundle
+        'Device',          # DeviceFileExplorerBundle, DeviceManagerBundle
+        'Layout',          # LayoutInspectorBundle
+        'Logcat',          # LogcatBundle
+        'Rendering',       # RenderingBundle
+        'Network',         # NetworkInspectorBundle
+        'Streaming',       # StreamingBundle
+        'Samples',         # SamplesBrowserBundle
+        'Symbol',          # SymbolPickerBundle
+        'Template',        # TemplatesBundle
+        'Wear',            # WearDwfBundle, WearWhsBundle, AndroidWearPairingBundle
+        'Ndk',             # AndroidNdkBundle (NDK 디버깅 관련)
+        'BackgroundTask',  # BackgroundTaskInspectorBundle
+        'Adb',             # AndroidAdbUiBundle
+    ]
+    
+    # 패턴 매칭으로 분류
+    for pattern in android_patterns:
+        if pattern in base_name:
+            return 'android'
+    
+    # 패턴에 매칭되지 않으면 intellij로 분류
+    return 'intellij'
 
 
 def update_extracted_bundles(project_root, latest_extraction):
@@ -389,10 +408,10 @@ def merge_translations():
 
     # missing_translations 폴더에서 데이터 로드
     missing_dir = project_root / "missing_translations"
-    json_file = missing_dir / "missing_keys.json"
+    json_file = missing_dir / "missing_keys_korean.json"
 
     if not json_file.exists():
-        print("[ERROR] missing_keys.json 파일을 찾을 수 없습니다.")
+        print("[ERROR] missing_keys_korean.json 파일을 찾을 수 없습니다.")
         print("   먼저 작업 3(Key 비교)를 실행하세요.")
         return False
 
