@@ -1,0 +1,65 @@
+import json
+from pathlib import Path
+
+def update_missing_keys():
+    file_path = Path("missing_translations/missing_keys_korean.json")
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    ko_dict = {
+        "action.Gradle.MigrateToDaemonJvmCriteria.text": "프로젝트를 데몬 JVM 기준(Daemon JVM Criteria)으로 마이그레이션",
+        "you.can.delegate.to.gradle": "'파일 | 설정 | 빌드, 실행, 배포 | 빌드 도구 | Gradle | 다음을 사용하여 빌드 및 실행'에서 IDE 빌드/실행 작업을 Gradle에 위임할 수 있습니다.",
+        "action.text.install": "설치",
+        "build.0.project": "{0} 빌드",
+        "change.build.gradle.configuration": "build.gradle 구성 변경",     
+        "description.text.a.single.platform.kotlin.library.or.application.targeting.javascript": "JavaScript를 대상으로 하는 단일 플랫폼 Kotlin 라이브러리 또는 애플리케이션",
+        "description.text.a.single.platform.kotlin.library.or.application.targeting.js.for.browser": "브라우저용 JavaScript를 대상으로 하는 단일 플랫폼 Kotlin 라이브러리 또는 애플리케이션",
+        "description.text.a.single.platform.kotlin.library.or.application.targeting.js.for.node.js": "Node.js용 JavaScript를 대상으로 하는 단일 플랫폼 Kotlin 라이브러리 또는 애플리케이션",
+        "description.text.a.single.platform.kotlin.library.or.application.targeting.the.jvm": "JVM을 대상으로 하는 단일 플랫폼 Kotlin 라이브러리 또는 애플리케이션",    
+        "description.text.adds.support.for.building.kotlin.projects": "Kotlin 프로젝트 빌드 지원 추가",
+        "description.text.multi.targeted.jvm.js.ios.etc.project.with.shared.code.in.common.modules": "공통 모듈에 코드를 공유하는 다중 대상(JVM, JS, iOS 등) 프로젝트입니다. 대상은 프로젝트의 빌드 스크립트에서 구성할 수 있습니다.",  
+        "error.text.cannot.find.build.gradle.file.for.module": "{0} 모듈에 대한 build.gradle 파일을 찾을 수 없습니다.",
+        "error.text.failed.to.load.script.definitions.by": "{0}에 의한 스크립트 정의를 로드하지 못했습니다.",
+        "error.text.highlighting.is.impossible.during.gradle.import": "Gradle을 가져오는 동안에는 강조 표시를 할 수 없습니다.",
+        "error.text.support.requires.version": "{0} 기능을 지원하려면 Kotlin 런타임 라이브러리 버전 {1} 이상이 필요합니다. 빌드 스크립트에서 버전을 업데이트하세요.",
+        "error.text.this.language.feature.requires.version": "이 언어 기능을 지원하려면 Kotlin 런타임 라이브러리 버전 {0} 이상이 필요합니다. 빌드 스크립트에서 버전을 업데이트하세요.",
+        "presentable.text.java.with.gradle": "Java(Gradle 사용)",
+        "text.couldn.t.configure.kotlin.gradle.plugin.automatically": "kotlin-gradle 플러그인을 자동으로 구성할 수 없습니다.",
+        "text.see.manual.installation.instructions": "수동 설치 지침은 <a href=\"https://kotlinlang.org/docs/reference/using-gradle.html\">여기</a>를 참조하세요.",
+        "text.was.modified": "{0}이(가) 수정되었습니다.",
+        "title.configure.kotlin.gradle.plugin": "Kotlin-Gradle 플러그인 구성",     
+        "title.kotlin.build.script": "Gradle Kotlin DSL 스크립트 오류",
+        "title.update.language.version": "언어 버전 업데이트",
+        "display.name.kotlin.multiplatform": "Kotlin/Multiplatform",
+        "display.name.kotlin.jvm": "Kotlin/JVM",
+        "display.name.kotlin.js.for.node.js": "Kotlin/JS (Node.js용)",
+        "display.name.kotlin.js.for.browser": "Kotlin/JS (브라우저용)",
+        "command.name.configure.kotlin": "Kotlin 구성",
+        "command.name.configure.0": "{0} 구성",
+        "framework.support.provider.kotlin.js.for.browser.display.name": "Kotlin/JS (브라우저용)",
+        "framework.support.provider.kotlin.js.for.node.js.display.name": "Kotlin/JS (Node.js용)",
+        "framework.support.provider.kotlin.jvm.display.name": "Kotlin/JVM",
+        "configuration.is.resolve.module.per.source.set": "이전 Gradle 가져오기 모드 감지됨",
+        "configuration.update.is.resolve.module.per.source.set": "IDE가 현재 Gradle 프로젝트당 단일 모듈을 생성하도록 구성되어 있습니다. 이 모드는 Gradle 소스 세트당 단일 모듈이 필요한 Kotlin Multiplatform 프로젝트와 호환되지 않습니다.",
+        "configuration.apply.is.resolve.module.per.source.set": "프로젝트 수정 및 다시 가져오기",
+        "configuration.do.not.suggest.update.is.resolve.module.per.source.set": "다시 표시 안 함"
+    }
+    
+    filename = "KotlinIdeaGradleBundle.properties"
+    found = False
+    for file_entry in data.get('new_files', []):
+        if file_entry['filename'] == filename:
+            file_entry['keys'].update(ko_dict)
+            found = True
+            break
+    if not found:
+        data.setdefault('new_files', []).append({"filename": filename, "keys": ko_dict})
+    
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        
+    print(f"Updated {filename}")
+
+if __name__ == "__main__":
+    update_missing_keys()

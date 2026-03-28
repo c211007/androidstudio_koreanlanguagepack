@@ -1,0 +1,42 @@
+import json
+
+ko_dict = {
+  "highlighter.tool.tip.text.run.test": "테스트 실행",
+  "intention.suppress.family": "경고 억제",
+  "intention.suppress.text": "{1} {2}에 대한 ''{0}'' 억제",
+  "kotlin.compiler.warning.0.options": "컴파일러 경고 ''{0}'' 옵션",
+  "declaration.kind.statement": "문",
+  "declaration.kind.initializer": "이니셜라이저",
+  "declaration.kind.object": "객체",
+  "declaration.kind.companion.object": "동반 객체",
+  "declaration.kind.file": "파일",
+  "declaration.kind.secondary.constructor.of": "다음의 보조 생성자:",
+  "declaration.kind.enum.entry": "enum 항목",
+  "declaration.kind.type.parameter": "유형 매개변수",
+  "declaration.kind.class": "클래스",
+  "declaration.kind.interface": "인터페이스",
+  "declaration.kind.fun": "함수",
+  "declaration.kind.val": "값",
+  "declaration.kind.var": "변수",
+  "declaration.kind.parameter": "매개변수",
+  "declaration.name.0.of.1": "{1}의 {0}",
+  "declaration.name.anonymous": "<anonymous>"
+}
+
+with open('missing_translations/missing_keys_korean.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+filename = "KotlinBaseCodeInsightBundle.properties"
+found = False
+for file_entry in data.get('new_files', []):
+    if file_entry['filename'] == filename:
+        file_entry['keys'].update(ko_dict)
+        found = True
+        break
+if not found:
+    data.setdefault('new_files', []).append({"filename": filename, "keys": ko_dict})
+
+print(f"Updated {filename} (Keys 1-20)")
+
+with open('missing_translations/missing_keys_korean.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)

@@ -1,0 +1,63 @@
+import json
+from pathlib import Path
+
+def update_missing_keys():
+    file_path = Path("missing_translations/missing_keys_korean.json")
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    ko_dict = {
+        "generator.title": "Kotlin 멀티플랫폼",
+        "error.nothing.selected": "구성할 모듈 선택",
+        "error.generation": "프로젝트 생성 오류",
+        "additional.buildsystem.settings.project.jdk": "JDK",
+        "additional.buildsystem.settings.artifact.coordinates": "아티팩트 좌표",
+        "module.dependencies.module.dependencies": "모듈 종속성",
+        "module.dependencies.module.dependencies.tooltip": "현재 애플리케이션이 의존하는 모듈",
+        "module.dependencies.add.module.dependency": "모듈 종속성 추가",
+        "module.dependencies.remove.module.dependency": "모듈 종속성 제거",
+        "editor.modules.add": "{0} 추가",
+        "editor.modules.remove.tooltip": "{0} 제거",
+        "editor.modules.project": "프로젝트",
+        "editor.modules.add.module": "프로젝트에 모듈 추가",
+        "editor.modules.no.modules": "생성된 모듈 없음",
+        "module.settings.name": "이름",
+        "module.settings.name.module.name": "모듈 이름",
+        "module.settings.template": "템플릿",
+        "module.settings.template.none": "없음",
+        "version.provider.downloading.kotlin.version": "Kotlin 버전 다운로드 중",
+        "module.settings.dependencies.empty": "추가된 모듈 종속성이 없습니다.",
+        "module.settings.dependencies.empty.suggest.add": "모듈 종속성을 추가하세요",
+        "project.opener.initialisation": "초기화…",
+        "dialog.title.validation.error": "유효성 검사 오류",
+        "finish.button.text": "마침",
+        "dialog.title.invalid.project.name": "잘못된 프로젝트 이름",
+        "label.project.wizard.new.project.use.compact.project.structure": "컴팩트 프로젝트 구조 사용",
+        "tooltip.project.wizard.new.project.use.compact.project.structure": "폴더 중첩이 적은 간결한 프로젝트 구조(src/Main.kt)",
+        "label.project.wizard.new.project.generate.multiple.modules": "다중 모듈 빌드 생성",
+        "tooltip.project.wizard.new.project.generate.multiple.modules": "중대형 프로젝트에 적합한 다중 모듈 설정",
+        "project.wizard.new.project.kotlin.comment": "다른 플랫폼을 타겟팅하려면 <a>Kotlin 멀티플랫폼</a>을 사용하세요.",
+        "dialog.choose.stdlib": "추가할 Kotlin 표준 라이브러리 선택",
+        "dialog.choose.stdlib.available.libs": "사용 가능한 라이브러리:",
+        "searching.for.stdlibs.progress.title": "kotlin-stdlib를 포함하는 라이브러리 검색 중",
+        "dialog.use.default.library.button": "기본값 사용"
+    }
+    
+    filename = "KotlinNewProjectWizardUIBundle.properties"
+    found = False
+    for file_entry in data.get('new_files', []):
+        if file_entry['filename'] == filename:
+            file_entry['keys'].update(ko_dict)
+            found = True
+            break
+    if not found:
+        data.setdefault('new_files', []).append({"filename": filename, "keys": ko_dict})
+    
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        
+    print(f"Updated {filename}")
+
+if __name__ == "__main__":
+    update_missing_keys()

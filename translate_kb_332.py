@@ -1,0 +1,64 @@
+import json
+import os
+
+translated_keys = {
+  "html5.outline.mode": "HTML5 구조",
+  "xml.inspections.duplicate.declaration": "유일하지 않은 선언 이름 {0}",
+  "xml.inspections.registered.resource.is.not.recognized": "이 uri로 등록된 리소스를 인식할 수 없습니다 (설정 | 언어 및 프레임워크 | 스키마 및 DTD)",
+  "xml.inspections.should.have.fixed.value": "{0}은(는) 고정값 {1}을(를) 가져야 합니다.",
+  "xml.inspections.attribute.requires.value": "{0}에는 값이 필요합니다.",
+  "xml.inspections.uri.is.not.registered": "URI가 등록되지 않았습니다 (설정 | 언어 및 프레임워크 | 스키마 및 DTD)",
+  "xml.inspections.wrong.value": "잘못된 {0} 값",
+  "xml.inspections.validate.external.resource.is.not.registered": "외부 리소스 {0}이(가) 등록되지 않았습니다.",
+  "xml.namespace.prefix": "XML 네임스페이스 접두사",
+  "xml.schema.validation.attr.not.allowed.with.ref": "요소 참조가 사용될 때 여기에는 {0} 속성이 허용되지 않습니다.",
+  "xml.schema.validation.default.or.fixed.should.be.specified.but.not.both": "'default' 및 'fixed' 속성은 동시에 존재해서는 안 됩니다.",
+  "xml.schema.validation.max.occurs.should.be.not.less.than.min.occurs": "maxOccurs 값은 minOccurs 값보다 커야 합니다.",
+  "xml.schema.validation.name.or.ref.should.present": "'name' 또는 'ref' 속성이 있어야 합니다.",
+  "xml.suppressable.all.for.file.title": "파일에 대해 모두 억제",
+  "xml.suppressable.for.file.title": "파일에 대해 억제",
+  "xml.suppressable.for.tag.title": "태그에 대해 억제",
+  "xml.terms.attribute": "속성",
+  "xml.terms.attribute.value": "속성 값",
+  "xml.terms.entity": "엔티티",
+  "xml.terms.tag": "태그",
+  "xml.terms.variable": "변수",
+  "xml.terms.xml.tag": "XML 태그",
+  "xml.terms.namespace.alias": "네임스페이스",
+  "xml.find.usages.presentable.name.of.containing.file": "파일 {1}의 {0}",
+  "xml.quickfix.insert.required.attribute.text": "필수 속성 ''{0}'' 삽입",
+  "xml.quickfix.insert.required.attribute.family": "필수 속성 삽입",
+  "xml.quickfix.add.attribute.value.text": "속성 값 추가",
+  "xml.quickfix.create.namespace.declaration.text": "{0} 선언 생성",
+  "xml.quickfix.create.namespace.declaration.family": "네임스페이스 선언 생성",
+  "xml.action.select.namespace.title": "가져올 {0}",
+  "xml.action.select.namespace.location.title": "네임스페이스 위치 선택",
+  "xml.progress.finding.acceptable.uri": "허용 가능한 URI 찾는 중",
+  "xml.progress.looking.in.schemas": "등록된 xml 스키마를 찾는 중",
+  "tag.has.wrong.closing.tag.name": "시작 태그의 닫는 태그가 잘못되었습니다",
+  "element.is.not.closed": "요소가 닫히지 않았습니다",
+  "rename.start.tag.name.intention": "시작 태그 ''{0}''을(를) ''{1}''(으)로 이름 바꾸기",
+  "rename.end.tag.name.intention": "닫는 태그 ''{0}''을(를) ''{1}''(으)로 이름 바꾸기"
+}
+
+file_path = "c:/Users/klanary/Desktop/vscode 모음/android_korean/androidstudio_koreanlanguagepack/missing_translations/missing_keys_korean.json"
+with open(file_path, "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+file_found = False
+for item in data["new_files"]:
+    if item["filename"] == "XmlPsiBundle.properties":
+        item["keys"].update(translated_keys)
+        file_found = True
+        break
+
+if not file_found:
+    data["new_files"].append({
+        "filename": "XmlPsiBundle.properties",
+        "keys": translated_keys
+    })
+
+with open(file_path, "w", encoding="utf-8") as f:
+    json.dump(data, f, ensure_ascii=False, indent=2)
+
+print("XmlPsiBundle translated successfully.")

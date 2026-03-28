@@ -1,0 +1,51 @@
+import json
+from pathlib import Path
+
+def update_missing_keys():
+    file_path = Path("missing_translations/missing_keys_korean.json")
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    ko_dict = {
+        "progress.text": "{0} - 단계 {1,number,#}/{2,number,#}",
+        "subphase.progress.text": "{0} ({1,number,#}/{2,number,#}) - 단계 {3,number,#}/{4,number,#}",
+        "progress.searching.usages.to.update": "업데이트할 사용 위치 검색 중…",
+        "j2k.phase.preprocessing": "Java 파일 전처리 중",
+        "j2k.phase.converting": "Java 코드를 Kotlin 코드로 변환 중",
+        "j2k.applying.conversions": "변환 적용 중…",
+        "j2k.custom.preprocessing": "사용자 지정 전처리기 실행 중",
+        "j2k.custom.postprocessing": "사용자 지정 후처리기 실행 중",
+        "j2k.custom.extensions.progress": "프로세서 {0} 실행 중 ({1,number,#}/{2,number,#})",
+        "converter.kotlin.not.configured.title": "프로젝트에 Kotlin이 구성되지 않음",
+        "converter.kotlin.not.configured.message": "변환을 수행하려면 먼저 프로젝트에 Kotlin을 구성해야 합니다.\\n변경 사항이 다시 로드될 때까지 기다려야 할 수도 있습니다.",
+        "converter.kotlin.not.configured.no.configurators.available": "사용 가능한 구성 도구가 없습니다",
+        "converter.kotlin.not.configured.configure": "확인, 프로젝트에 Kotlin 구성",
+        "converter.kotlin.not.configured.cancel.conversion": "아니요, 변환 취소",
+        "converter.kotlin.not.configured.choose.configurator": "구성 도구 선택",
+        "converter.kotlin.wait.for.sync.to.be.finished": "동기화가 완료되기를 기다리는 중",
+        "copy.text.convert.java.to.kotlin.title": "Java를 Kotlin으로 변환",
+        "copy.title.convert.code.from.java": "Java에서 코드 변환",
+        "copy.text.clipboard.content.seems.to.be.java.code.do.you.want.to.convert.it.to.kotlin": "클립보드 내용이 Java 코드 같습니다. Kotlin으로 변환하시겠습니까?",
+        "copy.text.copied.kotlin.code": "Kotlin 코드 복사됨",
+        "copy.text.rendering.declaration.stubs": "선언 스텁 렌더링 중…",
+        "copy.text.adding.imports": "가져오기 추가 중…"
+    }
+    
+    filename = "KotlinNJ2KBundle.properties"
+    found = False
+    for file_entry in data.get('new_files', []):
+        if file_entry['filename'] == filename:
+            file_entry['keys'].update(ko_dict)
+            found = True
+            break
+    if not found:
+        data.setdefault('new_files', []).append({"filename": filename, "keys": ko_dict})
+    
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        
+    print(f"Updated {filename}")
+
+if __name__ == "__main__":
+    update_missing_keys()

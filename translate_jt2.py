@@ -1,0 +1,35 @@
+import json
+
+ko_dict = {
+  "java.command.terminal.description": "java를 실행합니다.",
+  "java.command.terminal.help.option.description": "{0} 스트림에 도움말 메시지를 인쇄합니다.",
+  "java.command.terminal.jar.option.description": "JAR 파일에서 메인 클래스를 시작합니다.",
+  "java.command.terminal.version.option.description": "{0} 스트림에 제품 버전을 인쇄하고 종료합니다.",
+  "java.command.terminal.classpath.option.description": "디렉터리 및 zip/jar 파일의 클래스 검색 경로입니다.",
+  "java.command.terminal.show.version.option.description": "{0} 스트림에 제품 버전을 인쇄하고 계속 진행합니다.",
+  "java.command.terminal.dry.run.option.description": "VM을 만들고 메인 클래스를 로드하지만 메인 메서드를 실행하지는 않습니다.",
+  "java.command.terminal.enable.preview.option.description": "클래스가 릴리스의 프리뷰 기능에 종속되도록 허용합니다.",
+  "java.command.terminal.verbose.option.description": "지정된 하위 시스템에 대해 자세한 출력을 사용하도록 설정합니다.",
+  "external.java.configuration.run.command": "''{0}'' 실행 중…",
+  "error.stream.name": "오류",
+  "output.stream.name": "출력"
+}
+
+with open('missing_translations/missing_keys_korean.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+filename = 'JavaTerminalBundle.properties'
+found = False
+for file_entry in data['new_files']:
+    if file_entry['filename'] == filename:
+        file_entry['keys'].update(ko_dict)
+        found = True
+        break
+
+if not found:
+    data['new_files'].append({"filename": filename, "keys": ko_dict})
+
+print(f"Updated {filename}")
+
+with open('missing_translations/missing_keys_korean.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
