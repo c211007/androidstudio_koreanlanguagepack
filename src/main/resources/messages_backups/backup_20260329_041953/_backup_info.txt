@@ -1,0 +1,4 @@
+백업 생성 일시: 2026-03-29 04:19:53.819544
+원본 경로: c:\Users\klanary\Desktop\vscode 모음\android_korean\androidstudio_koreanlanguagepack\src\main\resources\messages
+
+파일 수: 345
