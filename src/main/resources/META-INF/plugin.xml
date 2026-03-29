@@ -394,7 +394,7 @@ Korean language pack for Android Studio. After installation, go to Settings > Ap
     <resource-bundle>messages.dependencySearchBundle</resource-bundle>
 <!-- Language bundle extension to enable Korean in Settings -->
     <extensions defaultExtensionNs="com.intellij">
-        <languageBundle locale="ko"/>
+        <languageBundle locale="ko"></languageBundle>
 
         <!-- Notification group for language change prompt -->
         <notificationGroup id="Korean Language Pack"
@@ -411,6 +411,14 @@ Korean language pack for Android Studio. After installation, go to Settings > Ap
                 class="com.github.c211007.androidstudiokoreanlanguagepack.TestLanguagePackAction"
                 text="Test Korean Language Pack"
                 description="Test if the Korean language pack plugin is loaded">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+        
+        <!-- Diagnostic action -->
+        <action id="com.github.c211007.androidstudiokoreanlanguagepack.DiagnosticAction"
+                class="com.github.c211007.androidstudiokoreanlanguagepack.DiagnosticAction"
+                text="Korean Language Pack Diagnostics"
+                description="Show diagnostic information about Korean language pack">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>
