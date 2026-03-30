@@ -5,8 +5,8 @@ import java.io.FileInputStream
 plugins {
 
     id("java") // Java support
+    id("org.jetbrains.intellij.platform")
     alias(libs.plugins.kotlin) // Kotlin support
-    // alias(libs.plugins.intelliJPlatform) // 위험확인IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
     alias(libs.plugins.qodana) // Gradle Qodana Plugin
     alias(libs.plugins.kover) // Gradle Kover Plugin
@@ -39,21 +39,20 @@ dependencies {
 
         // Module Dependencies. Uses `platformBundledModules` property from the gradle.properties file for bundled IntelliJ Platform modules.
         bundledModules(providers.gradleProperty("platformBundledModules").map { it.split(',') })
-        changeNotes = """Initial version""".trimIndent()
+        
     }
 }
-kotlin {
-    jvmToolchain(21)
-}
+
 tasks {
   // Set the JVM compatibility versions
-  withType<JavaCompile> {
-    sourceCompatibility = "21"
-    targetCompatibility = "21"
-  }
-  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "21"
-  }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    }
+    kotlin {
+        jvmToolchain(21)
+    }
 }
 
 
