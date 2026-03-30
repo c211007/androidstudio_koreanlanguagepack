@@ -5,7 +5,7 @@
 .kotlin
 .qodana
 build
-
+/cert/
 # Temporary extraction directories
 extracted_properties/
 temp_extracted/

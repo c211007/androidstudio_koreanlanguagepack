@@ -1,35 +1,35 @@
-import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
-import org.jetbrains.android
+import org.jetbrains.changelog.Changelog
+import java.util.Properties
+import java.io.FileInputStream
 plugins {
 
     id("java") // Java support
-    id("org.jetbrains.intellij.platform") version "2.13.1"
     alias(libs.plugins.kotlin) // Kotlin support
-    alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
+    // alias(libs.plugins.intelliJPlatform) // 위험확인IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
     alias(libs.plugins.qodana) // Gradle Qodana Plugin
     alias(libs.plugins.kover) // Gradle Kover Plugin
 }
-
+group= "androidstudio.koreanlanguagepack"
+version= "1.0.0"
 // Configure project's dependencies
 repositories {
     mavenCentral()
 
     // IntelliJ Platform Gradle Plugin Repositories Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-repositories-extension.html
     intellijPlatform {
-        //releases
+        //releases  마켓플레이스
         defaultRepositories()
     }
 }
-// Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/version_catalogs.html
+// gradle.properties의 종속성해결 Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/version_catalogs.html
 dependencies {
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
         val type = providers.gradleProperty("platformType")
         val version = providers.gradleProperty("platformVersion")
-        create(type,version)
-        androidStudio(version)
+        create(type, version)
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -39,30 +39,61 @@ dependencies {
 
         // Module Dependencies. Uses `platformBundledModules` property from the gradle.properties file for bundled IntelliJ Platform modules.
         bundledModules(providers.gradleProperty("platformBundledModules").map { it.split(',') })
-
-        testFramework(TestFrameworkType.Platform)
+        changeNotes = """Initial version""".trimIndent()
     }
 }
-
-intellijPlatform {
-
-    androidStudio("<versionNumber>") // 타겟 안드로이드 스튜디오 버전
-    bundledPlugin("org.jetbrains.android") // 안드로이드 플러그인 포함
-}
-group = providers.gradleProperty("pluginGroup").get()
-version = providers.gradleProperty("pluginVersion").get()
-
-// Set the JVM language level used to build the project.
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(21)
+}
+tasks {
+  // Set the JVM compatibility versions
+  withType<JavaCompile> {
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
+  }
+  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions.jvmTarget = "21"
+  }
 }
 
+
+// publishPlugin {
+//   token.set(providers.environmentVariable("PUBLISH_TOKEN"))
+// }추후에추가 
+
+sourceSets {
+    main {
+        kotlin {
+            setSrcDirs(listOf("src/kotlin"))
+        }
+        resources {
+            setSrcDirs(listOf("src/resources"))
+        }
+    }
+}
 // Configure IntelliJ Platform Gradle Plugin - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html
+
+
+// local.properties 파일 읽어오기
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localProperties.load(FileInputStream(localPropertiesFile))
+}
+
+tasks {
+    signPlugin {
+        certificateChainFile.set(file("cert/chain.crt"))
+        privateKeyFile.set(file("cert/private.pem"))
+        // 파일에 적어둔 비밀번호를 변수로 불러옵니다
+        password.set(localProperties.getProperty("PRIVATE_KEY_PASSWORD")) 
+    }
+}
 intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
-
+        group = providers.gradleProperty("pluginGroup").get()
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
         description = providers.fileContents(layout.projectDirectory.file("README.md")).asText.map {
             val start = "<!-- Plugin description -->"
@@ -94,11 +125,6 @@ intellijPlatform {
         }
     }
 
-    signing {
-        certificateChain = providers.environmentVariable("CERTIFICATE_CHAIN")
-        privateKey = providers.environmentVariable("PRIVATE_KEY")
-        password = providers.environmentVariable("PRIVATE_KEY_PASSWORD")
-    }
 
     publishing {
         token = providers.environmentVariable("PUBLISH_TOKEN")
@@ -122,17 +148,6 @@ changelog {
     versionPrefix = ""
 }
 
-// Configure Gradle Kover Plugin - read more: https://kotlin.github.io/kotlinx-kover/gradle-plugin/#configuration-details
-kover {
-    reports {
-        total {
-            xml {
-                onCheck = true
-            }
-        }
-    }
-}
-
 tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
@@ -145,26 +160,5 @@ tasks {
     // Disable tests as this is a language pack with no test files
     test {
         enabled = false
-    }
-}
-
-intellijPlatformTesting {
-    runIde {
-        register("runIdeForUiTests") {
-            task {
-                jvmArgumentProviders += CommandLineArgumentProvider {
-                    listOf(
-                        "-Drobot-server.port=8082",
-                        "-Dide.mac.message.dialogs.as.sheets=false",
-                        "-Djb.privacy.policy.text=<!--999.999-->",
-                        "-Djb.consents.confirmation.enabled=false",
-                    )
-                }
-            }
-
-            plugins {
-                robotServerPlugin()
-            }
-        }
     }
 }
