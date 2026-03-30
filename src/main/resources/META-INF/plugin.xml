@@ -26,6 +26,7 @@
     ]]></change-notes>
     <!-- Core platform dependency only -->
     <depends>com.intellij.modules.all</depends>
+    <depends>com.intellij.modules.platform</depends>
 
     <!-- Resource bundles - explicit registration for Korean translations -->
     <!-- Core IDE Bundles -->
@@ -402,7 +403,11 @@
     <resource-bundle>messages.build</resource-bundle>
     <resource-bundle>messages.dependencySearchBundle</resource-bundle>
 
+    <resource-bundle>messages.JavaDebuggerImplFrontendBundle</resource-bundle>
+    <resource-bundle>messages.TurboComplete</resource-bundle>
+
 <!-- Language bundle extension to enable Korean in Settings -->
+    
     <extensions defaultExtensionNs="com.intellij">
         <languageBundle locale="ko" displayName="Korean"></languageBundle>
     </extensions>

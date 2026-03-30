@@ -1,5 +1,7 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.changelog.Changelog
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.models.ProductRelease
 import java.util.Properties
 import java.io.FileInputStream
 plugins {
@@ -11,8 +13,9 @@ plugins {
     alias(libs.plugins.qodana) // Gradle Qodana Plugin
     alias(libs.plugins.kover) // Gradle Kover Plugin
 }
-group= "androidstudio.koreanlanguagepack"
-version= "1.0.0"
+group = providers.gradleProperty("pluginGroup").get()
+version = providers.gradleProperty("pluginVersion").get()
+
 // Configure project's dependencies
 repositories {
     mavenCentral()
@@ -63,10 +66,10 @@ tasks {
 sourceSets {
     main {
         kotlin {
-            setSrcDirs(listOf("src/kotlin"))
+            setSrcDirs(listOf("src/main/kotlin"))
         }
         resources {
-            setSrcDirs(listOf("src/resources"))
+            setSrcDirs(listOf("src/main/resources"))
         }
     }
 }
@@ -88,8 +91,15 @@ tasks {
         password.set(localProperties.getProperty("PRIVATE_KEY_PASSWORD")) 
     }
 }
+intellijPlatform{
+//    platformPath :intellij플랫폼 경로https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-extension.html#intellijPlatform-productInfo
+    buildSearchableOptions=false
+    instrumentCode = false
+    autoReload=true
+}
 intellijPlatform {
     pluginConfiguration {
+        id="androidstudio.koreanlanguagepack"
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
         group = providers.gradleProperty("pluginGroup").get()
@@ -118,24 +128,71 @@ intellijPlatform {
                 )
             }
         }
+        productDescriptor{
+            releaseDate="20260330"
+            releaseVersion="2026001"
+        }
 
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
         }
+
+        vendor{
+            name="KangJeongMo"
+            email="C211007@g.hongik.ac.kr"
+            url="https://github.com/c211007/androidstudio_koreanlanguagepack"
+        }
     }
-
-
+    caching.ides {
+        enabled=true
+        path = layout.projectDirectory.dir(".intellijPlatform/ides")
+        name = { requested -> "${'$'}{requested.type}-${'$'}{requested.version}" }
+    }
     publishing {
+        //host = ""
         token = providers.environmentVariable("PUBLISH_TOKEN")
+        ideServices = false
+        hidden = false
+
         // The pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html#specifying-a-release-channel
         channels = providers.gradleProperty("pluginVersion").map { listOf(it.substringAfter('-', "").substringBefore('.').ifEmpty { "default" }) }
     }
 
+//    signing {
+//        cliPath = file("/path/to/marketplace-zip-signer-cli.jar")
+//        keyStore = file("/path/to/keyStore.ks")
+//        keyStorePassword = "..."
+//        keyStoreKeyAlias = "..."
+//        keyStoreType = "..."
+//        keyStoreProviderName = "..."
+//        privateKey = "..."
+//        privateKeyFile = file("/path/to/private.pem")
+//        password = "..."
+//        certificateChain = "..."
+//        certificateChainFile = file("/path/to/chain.crt")
+//    }
+
+
+
     pluginVerification {
         ides {
-            recommended()
+            val type = providers.gradleProperty("platformType")
+            val version = providers.gradleProperty("platformVersion")
+            create(type, version)
+            local("/.intellijPlatform/ides")
+            select {
+
+                // 검사할 IDE 종류 (예: PhpStorm)
+                types = listOf(IntelliJPlatformType.AndroidStudio)
+
+                // 릴리스 채널 (정식 버전만 검사)
+                channels = listOf(ProductRelease.Channel.RELEASE)
+
+                // 232 버전부터 241.* 버전 사이의 모든 정식 릴리스 자동 검사
+                sinceBuild = "253"
+            }
         }
     }
 }
