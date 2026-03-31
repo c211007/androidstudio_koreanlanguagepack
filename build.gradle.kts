@@ -32,7 +32,9 @@ dependencies {
     intellijPlatform {
         val type = providers.gradleProperty("platformType")
         val version = providers.gradleProperty("platformVersion")
-        create(type, version)
+        
+        // Use local Android Studio installation
+        local(layout.projectDirectory.dir(".intellijPlatform/ides/${type.get()}-${version.get()}/android-studio"))
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -146,7 +148,7 @@ intellijPlatform {
     caching.ides {
         enabled=true
         path = layout.projectDirectory.dir(".intellijPlatform/ides")
-        name = { requested -> "${'$'}{requested.type}-${'$'}{requested.version}" }
+        name = { requested -> "${requested.type}-${requested.version}" }
     }
     publishing {
         //host = ""
@@ -180,19 +182,9 @@ intellijPlatform {
         ides {
             val type = providers.gradleProperty("platformType")
             val version = providers.gradleProperty("platformVersion")
-            create(type, version)
-            local("/.intellijPlatform/ides")
-            select {
-
-                // 검사할 IDE 종류 (예: PhpStorm)
-                types = listOf(IntelliJPlatformType.AndroidStudio)
-
-                // 릴리스 채널 (정식 버전만 검사)
-                channels = listOf(ProductRelease.Channel.RELEASE)
-
-                // 232 버전부터 241.* 버전 사이의 모든 정식 릴리스 자동 검사
-                sinceBuild = "253"
-            }
+            
+            local(layout.projectDirectory.dir(".intellijPlatform/ides/${type.get()}-${version.get()}/android-studio"))
+            // local("/.intellijPlatform/ides/${type.get()}-${version.get()}/android-studio")
         }
     }
 }
