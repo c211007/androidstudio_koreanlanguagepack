@@ -163,8 +163,8 @@ def extract_from_intellij_platform(verbose=True):
     project_root = Path(__file__).parent
     
     # IntelliJ Platform 경로
-    platform_path = project_root / ".intellijPlatform" / "ides" / "AI-2025.3.2.6" / "android-studio"
-    
+    # platform_path = project_root / ".intellijPlatform" / "ides" / "AI-2025.3.2.6" / "android-studio"
+    platform_path = Path("C:/Program Files/Android/Android Studio")
     if not platform_path.exists():
         print(f"❌ IntelliJ Platform 경로를 찾을 수 없습니다: {platform_path}")
         return None
