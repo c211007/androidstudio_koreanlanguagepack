@@ -64,17 +64,34 @@ def is_english_base_file(filename):
 def find_jar_files(directory):
     """디렉토리에서 jar 파일 재귀적으로 찾기"""
     jar_files = []
+    scanned_dirs = set()
 
     print(f"📂 JAR 파일 검색 중: {directory}")
+    print(f"   (모든 하위 폴더를 재귀적으로 탐색합니다)\n")
 
     try:
         for root, dirs, files in os.walk(directory):
-            # 불필요한 디렉토리 제외
+            # 불필요한 디렉토리 제외 (숨김 폴더만)
             dirs[:] = [d for d in dirs if not d.startswith('.')]
+            
+            # 현재 탐색 중인 디렉토리 추적
+            current_dir = Path(root).relative_to(directory) if Path(root) != Path(directory) else Path(".")
+            scanned_dirs.add(str(current_dir))
 
             for file in files:
                 if file.endswith('.jar'):
                     jar_files.append(Path(root) / file)
+
+        # 주요 폴더 탐색 확인
+        print("✅ 탐색 완료:")
+        key_folders = ['lib', 'plugins', 'bin', 'jbr']
+        for folder in key_folders:
+            found = any(folder in str(d) for d in scanned_dirs)
+            status = "✓" if found else "✗"
+            print(f"   {status} {folder}/ 폴더")
+        
+        print(f"\n   총 {len(scanned_dirs)}개 디렉토리 탐색")
+        print(f"   {len(jar_files)}개 JAR 파일 발견\n")
 
         return jar_files
 
@@ -157,26 +174,25 @@ def extract_properties_from_jar(jar_path, output_dir, relative_jar_path, verbose
     return extracted_count
 
 
-def extract_from_intellij_platform(verbose=True):
+def extract_from_intellij_platform(verbose=True, output_folder_name="alpha_location"):
     """IntelliJ Platform 경로에서 properties 추출"""
     # 프로젝트 루트 경로
     project_root = Path(__file__).parent
     
     # IntelliJ Platform 경로
-    # platform_path = project_root / ".intellijPlatform" / "ides" / "AI-2025.3.2.6" / "android-studio"
     platform_path = Path("C:/Program Files/Android/Android Studio")
     if not platform_path.exists():
-        print(f"❌ IntelliJ Platform 경로를 찾을 수 없습니다: {platform_path}")
+        print(f"❌ Android Studio 경로를 찾을 수 없습니다: {platform_path}")
         return None
 
     print("\n" + "=" * 80)
-    print("Android Studio IntelliJ Platform Properties 추출")
+    print("Android Studio Properties 추출")
     print("=" * 80 + "\n")
 
-    print(f"📍 Platform 경로: {platform_path}\n")
+    print(f"📍 Android Studio 경로: {platform_path}\n")
 
     # 출력 디렉토리 생성
-    output_dir = project_root / "pro_location"
+    output_dir = project_root / output_folder_name
     output_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"📁 출력 디렉토리: {output_dir}\n")
@@ -244,7 +260,7 @@ def extract_from_intellij_platform(verbose=True):
 
 def main():
     """메인 함수"""
-    extract_from_intellij_platform(verbose=True)
+    extract_from_intellij_platform(verbose=True, output_folder_name="alpha_location")
 
 
 if __name__ == "__main__":

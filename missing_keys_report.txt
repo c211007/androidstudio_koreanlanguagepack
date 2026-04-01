@@ -1,0 +1,18 @@
+번역 누락 키 상세 보고서
+================================================================================
+생성일시: 1775042270.7553935
+원본 폴더: c:\Users\klanary\Desktop\vscode 모음\android_korean\androidstudio_koreanlanguagepack\pro_location
+번역 폴더: c:\Users\klanary\Desktop\vscode 모음\android_korean\androidstudio_koreanlanguagepack\src\main\resources\messages
+
+총 검사한 파일: 345개
+빠진 키가 있는 파일: 1개
+총 빠진 키 개수: 1개
+
+================================================================================
+
+
+파일: VcsBundle.properties
+빠진 키 개수: 1개
+--------------------------------------------------------------------------------
+ignoreTokenType.syntax\:
+
