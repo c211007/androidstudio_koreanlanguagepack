@@ -33,8 +33,8 @@ dependencies {
         val type = providers.gradleProperty("platformType")
         val version = providers.gradleProperty("platformVersion")
         
-        // Use local Android Studio installation
-        local(layout.projectDirectory.dir(".intellijPlatform/ides/${type.get()}-${version.get()}/android-studio"))
+        // Use Android Studio dependency from the web
+        androidStudio(version.get())
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -145,11 +145,11 @@ intellijPlatform {
             url="https://github.com/c211007/androidstudio_koreanlanguagepack"
         }
     }
-    caching.ides {
-        enabled=true
-        path = layout.projectDirectory.dir(".intellijPlatform/ides")
-        name = { requested -> "${requested.type}-${requested.version}" }
-    }
+//    caching.ides {
+//        enabled=true
+//        path = layout.projectDirectory.dir(".intellijPlatform/ides")
+//        name = { requested -> "${requested.type}-${requested.version}" }
+//    }
     publishing {
         //host = ""
         token = providers.environmentVariable("PUBLISH_TOKEN")
@@ -183,7 +183,7 @@ intellijPlatform {
             val type = providers.gradleProperty("platformType")
             val version = providers.gradleProperty("platformVersion")
             
-            local(layout.projectDirectory.dir(".intellijPlatform/ides/${type.get()}-${version.get()}/android-studio"))
+//            ide(IntelliJPlatformType.AndroidStudio, version.get())
             // local("/.intellijPlatform/ides/${type.get()}-${version.get()}/android-studio")
         }
     }
