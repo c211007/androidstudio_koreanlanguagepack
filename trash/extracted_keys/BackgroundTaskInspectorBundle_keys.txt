@@ -1,8 +1,0 @@
-action.cancel.work
-action.show.graph
-action.show.list
-action.tag.all
-action.tag.tooltip
-detail.content.none
-table.data.awaiting
-table.data.null

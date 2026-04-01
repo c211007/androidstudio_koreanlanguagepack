@@ -1,9 +1,0 @@
-dialog.extra.label
-dialog.rating.label
-dialog.rating.leftHint
-dialog.rating.middleHint
-dialog.rating.rightHint
-dialog.subtitle
-dialog.title
-feedback.notification.text
-feedback.notification.title

@@ -1,3 +1,0 @@
-dialog.message.please.select.distribution
-dialog.message.wsl.credentials.expected
-tooltip.wsl.mappings

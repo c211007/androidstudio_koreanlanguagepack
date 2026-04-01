@@ -1,6 +1,0 @@
-action.EAPFeedbackToolbarAction.description
-action.EAPFeedbackToolbarAction.text
-notification.request.eap.feedback.action.dont.show.text
-notification.request.eap.feedback.action.respond.text
-notification.request.eap.feedback.text
-notification.request.eap.feedback.title

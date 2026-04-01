@@ -1,3 +1,0 @@
-inspection.results.for.inspection.toolwindow.title
-inspection.results.for.profile.toolwindow.title
-suppress.inspection.annotation.syntax.error

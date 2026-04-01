@@ -1,6 +1,0 @@
-general.dialog.cancel.label
-general.dialog.text.area.details
-general.dialog.text.area.details.require
-general.dialog.title
-general.dialog.top.title
-general.notification.thanks.feedback.content

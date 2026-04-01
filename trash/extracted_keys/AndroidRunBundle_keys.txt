@@ -1,2 +1,0 @@
-cant.find.activity.class.error
-module.not.specified.error.text

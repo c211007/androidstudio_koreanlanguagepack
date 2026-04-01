@@ -1,4 +1,0 @@
-dialog.message.enable.plugin.question
-dialog.message.ijent.binary.plugin
-dialog.title.ijent.binary.plugin
-failed.to.get.ijent.binary

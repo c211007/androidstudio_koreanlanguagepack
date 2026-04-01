@@ -1,9 +1,0 @@
-build.event.message.successful
-build.event.message.syncing
-build.messages.cancelled
-build.messages.failed
-build.messages.finished
-build.status.cancelled
-build.status.failed
-build.status.finished
-build.status.running

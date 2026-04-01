@@ -1,6 +1,0 @@
-action.WorkspaceEntitiesJsonClipboard.text
-action.WorkspaceEntitiesJsonLog.text
-action.WorkspaceEntitiesJsonLogFile.text
-notification.content.cannot.find.log.directory
-notification.title.cannot.find.log.directory
-progress.title.dumping.workspace.entities.json.to.clipboard
