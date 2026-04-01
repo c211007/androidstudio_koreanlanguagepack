@@ -1,4 +1,4 @@
-추출 일시: 2026-04-01 21:36:55.267693
+추출 일시: 2026-04-01 22:08:51.417279
 Platform 경로: C:\Program Files\Android\Android Studio
 추출된 파일 수: 347
 
