@@ -1,4 +1,4 @@
-﻿<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin require-restart="true">
     <id>com.androidstudio.koreanlanguagepack</id>
     <name>Androidstudio Korean Language Pack</name>
@@ -158,7 +158,6 @@
     <resource-bundle>messages.EvaluationFeedbackMessagesBundle</resource-bundle>
     <resource-bundle>messages.GeneralFeedbackMessagesBundle</resource-bundle>
     <resource-bundle>messages.LocalizationFeedbackMessagesBundle</resource-bundle>
-    <resource-bundle>messages.PluginPageFeedbackMessagesBundle</resource-bundle>
 
     <!-- Auto-added bundles - 2026-03-29 04:19:54 -->
     <resource-bundle>messages.AgentsCoreBundle</resource-bundle>
@@ -349,7 +348,6 @@
     <resource-bundle>messages.OCInteractiveBundle</resource-bundle>
     <resource-bundle>messages.OCRefactoringBundle</resource-bundle>
     <resource-bundle>messages.PerformanceTestingBundle</resource-bundle>
-    <resource-bundle>messages.PluginFreezeBundle</resource-bundle>
     <resource-bundle>messages.PolySymbolsBundle</resource-bundle>
     <resource-bundle>messages.PredictionServicesBundle</resource-bundle>
     <resource-bundle>messages.PropertiesBundle</resource-bundle>
@@ -410,36 +408,6 @@
     
     <extensions defaultExtensionNs="com.intellij">
         <languageBundle locale="ko" displayName="Korean"></languageBundle>
-        <resource-bundle>messages.CCorePluginResources</resource-bundle>
-        <resource-bundle>messages.CertPathReviewerMessages</resource-bundle>
-        <resource-bundle>messages.ChangeGeneratorMessages</resource-bundle>
-        <resource-bundle>messages.commonMessages</resource-bundle>
-        <resource-bundle>messages.ComposePreviewBundle</resource-bundle>
-        <resource-bundle>messages.CoreModelMessages</resource-bundle>
-        <resource-bundle>messages.DfsText</resource-bundle>
-        <resource-bundle>messages.ErrorPane</resource-bundle>
-        <resource-bundle>messages.FastPreview</resource-bundle>
-        <resource-bundle>messages.GlancePreviewBundle</resource-bundle>
-        <resource-bundle>messages.GoogleLoginBundle</resource-bundle>
-        <resource-bundle>messages.JGitText</resource-bundle>
-        <resource-bundle>messages.LiveEdit</resource-bundle>
-        <resource-bundle>messages.LoginPane</resource-bundle>
-        <resource-bundle>messages.message</resource-bundle>
-        <resource-bundle>messages.Messages</resource-bundle>
-        <resource-bundle>messages.MessagesBundle</resource-bundle>
-        <resource-bundle>messages.plugin</resource-bundle>
-        <resource-bundle>messages.PreviewBundle</resource-bundle>
-        <resource-bundle>messages.RepoText</resource-bundle>
-        <resource-bundle>messages.SearchField</resource-bundle>
-        <resource-bundle>messages.SettingsModelMessages</resource-bundle>
-        <resource-bundle>messages.SshdText</resource-bundle>
-        <resource-bundle>messages.strings</resource-bundle>
-        <resource-bundle>messages.swingx</resource-bundle>
-        <resource-bundle>messages.SWTMessages</resource-bundle>
-        <resource-bundle>messages.Texts</resource-bundle>
-        <resource-bundle>messages.TipOfTheDay</resource-bundle>
-        <resource-bundle>messages.UtilMessages</resource-bundle>
-        <resource-bundle>messages.WearBundle</resource-bundle>
     </extensions>
 
 </idea-plugin>
