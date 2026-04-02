@@ -7542,16 +7542,16 @@ internal object message : DynamicBundle(MESSAGE_BUNDLE) {
 // Messages
 // ============================================================================
 @NonNls
-private const val MESSAGES_BUNDLE = "messages.Messages"
+private const val MESSAGES_ONLY_BUNDLE = "messages.Messages"
 
-internal object Messages : DynamicBundle(MESSAGES_BUNDLE) {
+internal object Messages : DynamicBundle(MESSAGES_ONLY_BUNDLE) {
     @JvmStatic
-    fun message(@PropertyKey(resourceBundle = MESSAGES_BUNDLE) key: String, vararg params: Any): @Nls String {
+    fun message(@PropertyKey(resourceBundle = MESSAGES_ONLY_BUNDLE) key: String, vararg params: Any): @Nls String {
         return getMessage(key, *params)
     }
 
     @JvmStatic
-    fun messagePointer(@PropertyKey(resourceBundle = MESSAGES_BUNDLE) key: String, vararg params: Any): Supplier<@Nls String> {
+    fun messagePointer(@PropertyKey(resourceBundle = MESSAGES_ONLY_BUNDLE) key: String, vararg params: Any): Supplier<@Nls String> {
         return getLazyMessage(key, *params)
     }
 }
