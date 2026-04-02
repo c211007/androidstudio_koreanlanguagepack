@@ -5,13 +5,11 @@
     <version>1.0.0</version>
     <idea-version since-build="253"/>
     <vendor email="c211007@g.hongik.ac.kr" url="https://github.com/c211007">KangJeongMo</vendor>
-    <description><![CDATA[
-    안드로이드 스튜디오 한국어 언어팩
-    Korean language pack for Android Studio. After installation, go to Settings > Appearance &amp; Behavior > Language and Region > Language to select Korean.
-    설치 후 설정 > 모양 및 동작 > 언어 및 지역 > 언어에서 한국어를 선택하세요.
+    <description><![CDATA[Korean language pack for Android Studio. After installation, go to Settings > Appearance &amp; Behavior > Language and Region > Language to select Korean.
+    
+    
     For more information visit the
-    <a href="https://github.com/c211007/androidstudio_koreanlanguagepack">project site</a>.
-    ]]></description>
+    <a href="https://github.com/c211007/androidstudio_koreanlanguagepack">project site</a>.]]></description>
     <change-notes><![CDATA[
     <h2>변경사항</h2>
     <ul>
