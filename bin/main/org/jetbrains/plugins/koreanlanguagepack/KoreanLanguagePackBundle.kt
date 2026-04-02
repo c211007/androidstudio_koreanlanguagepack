@@ -7258,14 +7258,643 @@ internal object YAMLBundle {
         @PropertyKey(resourceBundle = YAMLBUNDLE) key: String,
         vararg params: Any
     ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+
+
+// ============================================================================
+// CCorePluginResources
+// ============================================================================
+@NonNls
+private const val CCORE_PLUGIN_RESOURCES_BUNDLE = "messages.CCorePluginResources"
+
+internal object CCorePluginResources {
+    private val INSTANCE = DynamicBundle(CCorePluginResources::class.java, CCORE_PLUGIN_RESOURCES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = CCORE_PLUGIN_RESOURCES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = CCORE_PLUGIN_RESOURCES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
 }
 
 
+// ============================================================================
+// CertPathReviewerMessages
+// ============================================================================
+@NonNls
+private const val CERT_PATH_REVIEWER_MESSAGES_BUNDLE = "messages.CertPathReviewerMessages"
+
+internal object CertPathReviewerMessages {
+    private val INSTANCE = DynamicBundle(CertPathReviewerMessages::class.java, CERT_PATH_REVIEWER_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = CERT_PATH_REVIEWER_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = CERT_PATH_REVIEWER_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
 
 
+// ============================================================================
+// ChangeGeneratorMessages
+// ============================================================================
+@NonNls
+private const val CHANGE_GENERATOR_MESSAGES_BUNDLE = "messages.ChangeGeneratorMessages"
+
+internal object ChangeGeneratorMessages {
+    private val INSTANCE = DynamicBundle(ChangeGeneratorMessages::class.java, CHANGE_GENERATOR_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = CHANGE_GENERATOR_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = CHANGE_GENERATOR_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
 
 
+// ============================================================================
+// ComposePreviewBundle
+// ============================================================================
+@NonNls
+private const val COMPOSE_PREVIEW_BUNDLE_BUNDLE = "messages.ComposePreviewBundle"
+
+internal object ComposePreviewBundle {
+    private val INSTANCE = DynamicBundle(ComposePreviewBundle::class.java, COMPOSE_PREVIEW_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = COMPOSE_PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = COMPOSE_PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
 
 
+// ============================================================================
+// CoreModelMessages
+// ============================================================================
+@NonNls
+private const val CORE_MODEL_MESSAGES_BUNDLE = "messages.CoreModelMessages"
+
+internal object CoreModelMessages {
+    private val INSTANCE = DynamicBundle(CoreModelMessages::class.java, CORE_MODEL_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = CORE_MODEL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = CORE_MODEL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
 
 
+// ============================================================================
+// DfsText
+// ============================================================================
+@NonNls
+private const val DFS_TEXT_BUNDLE = "messages.DfsText"
+
+internal object DfsText {
+    private val INSTANCE = DynamicBundle(DfsText::class.java, DFS_TEXT_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = DFS_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = DFS_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// ErrorPane
+// ============================================================================
+@NonNls
+private const val ERROR_PANE_BUNDLE = "messages.ErrorPane"
+
+internal object ErrorPane {
+    private val INSTANCE = DynamicBundle(ErrorPane::class.java, ERROR_PANE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = ERROR_PANE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = ERROR_PANE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// FastPreview
+// ============================================================================
+@NonNls
+private const val FAST_PREVIEW_BUNDLE = "messages.FastPreview"
+
+internal object FastPreview {
+    private val INSTANCE = DynamicBundle(FastPreview::class.java, FAST_PREVIEW_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = FAST_PREVIEW_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = FAST_PREVIEW_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// GlancePreviewBundle
+// ============================================================================
+@NonNls
+private const val GLANCE_PREVIEW_BUNDLE_BUNDLE = "messages.GlancePreviewBundle"
+
+internal object GlancePreviewBundle {
+    private val INSTANCE = DynamicBundle(GlancePreviewBundle::class.java, GLANCE_PREVIEW_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = GLANCE_PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = GLANCE_PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// GoogleLoginBundle
+// ============================================================================
+@NonNls
+private const val GOOGLE_LOGIN_BUNDLE_BUNDLE = "messages.GoogleLoginBundle"
+
+internal object GoogleLoginBundle {
+    private val INSTANCE = DynamicBundle(GoogleLoginBundle::class.java, GOOGLE_LOGIN_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = GOOGLE_LOGIN_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = GOOGLE_LOGIN_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// JGitText
+// ============================================================================
+@NonNls
+private const val JGIT_TEXT_BUNDLE = "messages.JGitText"
+
+internal object JGitText {
+    private val INSTANCE = DynamicBundle(JGitText::class.java, JGIT_TEXT_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = JGIT_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = JGIT_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// LiveEdit
+// ============================================================================
+@NonNls
+private const val LIVE_EDIT_BUNDLE = "messages.LiveEdit"
+
+internal object LiveEdit {
+    private val INSTANCE = DynamicBundle(LiveEdit::class.java, LIVE_EDIT_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = LIVE_EDIT_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = LIVE_EDIT_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// LoginPane
+// ============================================================================
+@NonNls
+private const val LOGIN_PANE_BUNDLE = "messages.LoginPane"
+
+internal object LoginPane {
+    private val INSTANCE = DynamicBundle(LoginPane::class.java, LOGIN_PANE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = LOGIN_PANE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = LOGIN_PANE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// Messages
+// ============================================================================
+@NonNls
+private const val MESSAGES_BUNDLE = "messages.Messages"
+
+internal object Messages {
+    private val INSTANCE = DynamicBundle(Messages::class.java, MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// MessagesBundle
+// ============================================================================
+@NonNls
+private const val MESSAGES_BUNDLE_BUNDLE = "messages.MessagesBundle"
+
+internal object MessagesBundle {
+    private val INSTANCE = DynamicBundle(MessagesBundle::class.java, MESSAGES_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = MESSAGES_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = MESSAGES_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// PreviewBundle
+// ============================================================================
+@NonNls
+private const val PREVIEW_BUNDLE_BUNDLE = "messages.PreviewBundle"
+
+internal object PreviewBundle {
+    private val INSTANCE = DynamicBundle(PreviewBundle::class.java, PREVIEW_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = PREVIEW_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// RepoText
+// ============================================================================
+@NonNls
+private const val REPO_TEXT_BUNDLE = "messages.RepoText"
+
+internal object RepoText {
+    private val INSTANCE = DynamicBundle(RepoText::class.java, REPO_TEXT_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = REPO_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = REPO_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// SWTMessages
+// ============================================================================
+@NonNls
+private const val SWTMESSAGES_BUNDLE = "messages.SWTMessages"
+
+internal object SWTMessages {
+    private val INSTANCE = DynamicBundle(SWTMessages::class.java, SWTMESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = SWTMESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = SWTMESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// SearchField
+// ============================================================================
+@NonNls
+private const val SEARCH_FIELD_BUNDLE = "messages.SearchField"
+
+internal object SearchField {
+    private val INSTANCE = DynamicBundle(SearchField::class.java, SEARCH_FIELD_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = SEARCH_FIELD_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = SEARCH_FIELD_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// SettingsModelMessages
+// ============================================================================
+@NonNls
+private const val SETTINGS_MODEL_MESSAGES_BUNDLE = "messages.SettingsModelMessages"
+
+internal object SettingsModelMessages {
+    private val INSTANCE = DynamicBundle(SettingsModelMessages::class.java, SETTINGS_MODEL_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = SETTINGS_MODEL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = SETTINGS_MODEL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// SshdText
+// ============================================================================
+@NonNls
+private const val SSHD_TEXT_BUNDLE = "messages.SshdText"
+
+internal object SshdText {
+    private val INSTANCE = DynamicBundle(SshdText::class.java, SSHD_TEXT_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = SSHD_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = SSHD_TEXT_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// Texts
+// ============================================================================
+@NonNls
+private const val TEXTS_BUNDLE = "messages.Texts"
+
+internal object Texts {
+    private val INSTANCE = DynamicBundle(Texts::class.java, TEXTS_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = TEXTS_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = TEXTS_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// TipOfTheDay
+// ============================================================================
+@NonNls
+private const val TIP_OF_THE_DAY_BUNDLE = "messages.TipOfTheDay"
+
+internal object TipOfTheDay {
+    private val INSTANCE = DynamicBundle(TipOfTheDay::class.java, TIP_OF_THE_DAY_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = TIP_OF_THE_DAY_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = TIP_OF_THE_DAY_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// UtilMessages
+// ============================================================================
+@NonNls
+private const val UTIL_MESSAGES_BUNDLE = "messages.UtilMessages"
+
+internal object UtilMessages {
+    private val INSTANCE = DynamicBundle(UtilMessages::class.java, UTIL_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = UTIL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = UTIL_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// WearBundle
+// ============================================================================
+@NonNls
+private const val WEAR_BUNDLE_BUNDLE = "messages.WearBundle"
+
+internal object WearBundle {
+    private val INSTANCE = DynamicBundle(WearBundle::class.java, WEAR_BUNDLE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = WEAR_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = WEAR_BUNDLE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// commonMessages
+// ============================================================================
+@NonNls
+private const val COMMON_MESSAGES_BUNDLE = "messages.commonMessages"
+
+internal object commonMessages {
+    private val INSTANCE = DynamicBundle(commonMessages::class.java, COMMON_MESSAGES_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = COMMON_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = COMMON_MESSAGES_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// message
+// ============================================================================
+@NonNls
+private const val MESSAGE_BUNDLE = "messages.message"
+
+internal object message {
+    private val INSTANCE = DynamicBundle(message::class.java, MESSAGE_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = MESSAGE_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = MESSAGE_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// strings
+// ============================================================================
+@NonNls
+private const val STRINGS_BUNDLE = "messages.strings"
+
+internal object strings {
+    private val INSTANCE = DynamicBundle(strings::class.java, STRINGS_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = STRINGS_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = STRINGS_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+
+// ============================================================================
+// swingx
+// ============================================================================
+@NonNls
+private const val SWINGX_BUNDLE = "messages.swingx"
+
+internal object swingx {
+    private val INSTANCE = DynamicBundle(swingx::class.java, SWINGX_BUNDLE)
+
+    @Nls
+    fun message(
+        @PropertyKey(resourceBundle = SWINGX_BUNDLE) key: String,
+        vararg params: Any
+    ): String = INSTANCE.getMessage(key, *params)
+
+    fun lazyMessage(
+        @PropertyKey(resourceBundle = SWINGX_BUNDLE) key: String,
+        vararg params: Any
+    ): Supplier<@Nls String> = INSTANCE.getLazyMessage(key, *params)
+}
+
+}
