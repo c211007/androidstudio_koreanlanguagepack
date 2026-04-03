@@ -25,6 +25,8 @@
     <!-- Core platform dependency only -->
     <depends>com.intellij.modules.all</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>org.jetbrains.android</depends>
 
     <!-- Resource bundles - explicit registration for Korean translations -->
     <!-- Core IDE Bundles -->
