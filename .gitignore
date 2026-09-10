@@ -6,10 +6,12 @@
 .qodana
 build
 /cert/
+# 서명 키 비밀번호(PRIVATE_KEY_PASSWORD)가 들어있는 로컬 전용 파일 - 절대 커밋하지 말 것
+/local.properties
 # Temporary extraction directories
 extracted_properties/
 temp_extracted/
-
+bin/
 # Python cache
 __pycache__/
 *.pyc

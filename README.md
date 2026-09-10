@@ -39,6 +39,10 @@ Complete Korean (한국어) localization for Android Studio UI, including menus,
 This section is extracted by the Gradle build process for the plugin manifest. Do not remove the `<!-- ... -->` markers.
 <!-- Plugin description end -->
 
+## 개발자용 문서
+
+- [번역이 적용되는 원리와 조사 과정](docs/TRANSLATION_MECHANISM.md) — 왜 일부 메뉴만 번역이 안 됐는지, IntelliJ 플랫폼에서 텍스트가 화면에 나오는 3가지 경로와 각각의 대응 방법을 정리한 문서
+
 ## Installation
 
 - Using the IDE built-in plugin system:

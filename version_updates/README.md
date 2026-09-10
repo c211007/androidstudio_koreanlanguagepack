@@ -80,3 +80,22 @@ version_updates/
 ```
 
 모든 스크립트는 version_updates 폴더 내에서 독립적으로 실행됩니다.
+
+## UntranslatedActionScanner.kt (Kotlin 진단 도구, 배포판 미포함)
+
+`InlineActionTextOverrideApplier`가 알려진 번역을 다 적용한 뒤에도 여전히 한글이
+아닌 텍스트를 쓰는 액션/그룹이 있는지 IDE 실행 중 직접 스캔해서
+`{사용자 홈}/AndroidStudioKoreanPack_untranslated_actions.txt` 에 남기는 진단 도구입니다.
+
+**마켓플레이스 배포판(src/main/kotlin)에서는 제외했습니다** — 실제 사용자 IDE에
+개발용 리포트 파일을 매번 생성하는 건 불필요하기 때문입니다. 위 스크립트들과 달리
+IntelliJ Platform API에 의존하는 Kotlin 코드라 이 폴더에서 독립 실행은 안 되고,
+"소스"로만 보관합니다.
+
+**새 버전 출시 전 번역 누락을 다시 점검하고 싶다면:**
+1. `version_updates/UntranslatedActionScanner.kt`를
+   `src/main/kotlin/org/jetbrains/plugins/koreanlanguagepack/`로 복사
+2. `InlineActionTextOverrideApplier.kt`의 `execute()` 안, `wrapWithRetry(actionManager)` 호출
+   바로 다음 줄에 `UntranslatedActionScanner.scanAndWriteReport()` 호출 복원
+3. 샌드박스에서 IDE를 실행해 리포트 파일 확인
+4. **점검이 끝나면 다시 2번 줄을 지우고 .kt 파일을 이 폴더로 되돌려서 배포판에 남지 않게 할 것**
