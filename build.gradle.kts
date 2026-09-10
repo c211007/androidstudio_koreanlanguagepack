@@ -182,8 +182,8 @@ intellijPlatform {
         ides {
             val type = providers.gradleProperty("platformType")
             val version = providers.gradleProperty("platformVersion")
-            
-//            ide(IntelliJPlatformType.AndroidStudio, version.get())
+
+            create(IntelliJPlatformType.AndroidStudio, version.get())
             // local("/.intellijPlatform/ides/${type.get()}-${version.get()}/android-studio")
         }
     }
