@@ -33,10 +33,14 @@ Complete Korean (한국어) localization plugin for **Android Studio**. Translat
 - [ ] Set up CI/CD pipeline
 - [ ] Community contribution guidelines
 
+<!-- 아래 두 HTML 주석 마커 사이의 내용은 빌드 시 build.gradle.kts가 그대로 읽어서
+     plugin.xml의 description과 마켓플레이스 상세 페이지에 그대로 노출한다.
+     마커 줄이나 이 안내문 줄을 지우지 말고, 마커 사이에는 순수 텍스트 한 줄만 둘 것
+     (마크다운 서식은 변환 없이 그대로 노출되므로 쓰지 말 것).
+     주의: 마켓플레이스 검증기가 앞부분(대략 첫 40자) 구간에 한글 등 비라틴 문자가
+     섞여 있으면 "must start with Latin characters" 오류를 낸다. 한글은 절대 넣지 말 것. -->
 <!-- Plugin description -->
-Complete Korean (한국어) localization for Android Studio UI, including menus, dialogs, settings, and tooltips. Provides a seamless experience for Korean developers using Android Studio.
-
-This section is extracted by the Gradle build process for the plugin manifest. Do not remove the `<!-- ... -->` markers.
+Complete Korean localization for Android Studio UI, including menus, dialogs, settings, and tooltips. Provides a seamless experience for Korean developers using Android Studio.
 <!-- Plugin description end -->
 
 ## 개발자용 문서
